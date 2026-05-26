@@ -1,0 +1,13 @@
+# Claude Code 로컬 설정 (각자 다른 환경)
+.claude/
+
+# macOS / Windows 시스템 파일
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 에디터 임시 파일
+*.swp
+*~
+.vscode/
+.idea/

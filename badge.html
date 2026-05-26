@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>DX 인증 배지 — 표준 snippet</title>
+<style>
+  body { font-family: 'Malgun Gothic', sans-serif; max-width: 900px; margin: 40px auto; padding: 0 20px; color: #212121; line-height: 1.6; }
+  h1 { color: #1F4E79; border-bottom: 2px solid #1F4E79; padding-bottom: 8px; }
+  h2 { color: #1F4E79; margin-top: 32px; }
+  pre { background: #F5F5F5; border: 1px solid #E0E0E0; padding: 14px; border-radius: 6px; overflow-x: auto; font-size: 13px; }
+  code { background: #F5F5F5; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+  .demo { background: #FAFAFA; border: 1px dashed #BDBDBD; padding: 30px; margin: 16px 0; position: relative; min-height: 80px; }
+  .note { background: #FFF8E1; border-left: 4px solid #FFC107; padding: 12px 16px; margin: 16px 0; font-size: 14px; }
+
+  /* ===== DX 인증 배지 표준 스타일 (이 부분 복사) ===== */
+  .dx-cert-badge {
+    position: fixed;
+    top: 12px;
+    right: 12px;
+    z-index: 9999;
+    background: #1F4E79;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-family: 'Malgun Gothic', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: transform 0.15s;
+  }
+  .dx-cert-badge:hover { transform: translateY(-1px); }
+  .dx-cert-badge .dot { width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; display: inline-block; }
+  .dx-cert-badge .meta { opacity: 0.85; font-weight: 400; font-size: 11px; margin-left: 4px; }
+  /* ===== 여기까지 ===== */
+</style>
+</head>
+<body>
+
+<h1>DX 인증 배지 — 표준 snippet</h1>
+<p>아래 코드를 자신의 HTML 페이지에 박으면 우상단에 DX 인증 배지가 표시됩니다. 클릭하면 <strong>도구 허브</strong>로 이동해 진위 확인 가능.</p>
+
+<div class="note">
+<strong>중요:</strong> 이 배지는 <strong>DX팀이 인증한 도구</strong>에만 박을 수 있습니다. 인증 전 자기 도구에 임의로 박는 행위는 금지. 인증 신청은 DX 요청폼(P3 카테고리)으로.
+</div>
+
+<h2>1. CSS (head 안에 복사)</h2>
+<pre>&lt;style&gt;
+.dx-cert-badge {
+  position: fixed; top: 12px; right: 12px; z-index: 9999;
+  background: #1F4E79; color: white; padding: 6px 12px; border-radius: 20px;
+  font-size: 12px; font-family: 'Malgun Gothic', sans-serif; font-weight: 600;
+  text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  display: inline-flex; align-items: center; gap: 6px; transition: transform 0.15s;
+}
+.dx-cert-badge:hover { transform: translateY(-1px); }
+.dx-cert-badge .dot { width: 8px; height: 8px; background: #4CAF50; border-radius: 50%; display: inline-block; }
+.dx-cert-badge .meta { opacity: 0.85; font-weight: 400; font-size: 11px; margin-left: 4px; }
+&lt;/style&gt;</pre>
+
+<h2>2. HTML (body 안 어디든, 권장: 맨 위)</h2>
+<pre>&lt;a class="dx-cert-badge" href="https://tools.ogaren/?id=<strong>YOUR-TOOL-ID</strong>" target="_blank"&gt;
+  &lt;span class="dot"&gt;&lt;/span&gt; DX 인증
+  &lt;span class="meta"&gt;v1.0 · 2026-05-26&lt;/span&gt;
+&lt;/a&gt;</pre>
+
+<p><code>YOUR-TOOL-ID</code>, 버전, 날짜는 DX팀이 인증 시 발급해서 알려드립니다. <strong>직접 만들어 박으면 안 됩니다.</strong></p>
+
+<h2>3. 미리보기</h2>
+<div class="demo">
+  <a class="dx-cert-badge" href="index.html" style="position:static;top:auto;right:auto">
+    <span class="dot"></span> DX 인증
+    <span class="meta">v1.0 · 2026-05-26</span>
+  </a>
+  <p style="margin-top:20px;color:#757575;font-size:13px">실제로는 페이지 우상단에 고정 표시됩니다. 우상단 한번 보세요 ↗</p>
+</div>
+
+<h2>4. (선택) 자동 로더 버전 — 변조 방지 + 자동 업데이트</h2>
+<p>아래 한 줄만 박으면 허브에서 메타를 가져와 자동 렌더. 버전·날짜 직접 수정 불필요.</p>
+<pre>&lt;script src="https://tools.ogaren/badge.js" data-tool-id="<strong>YOUR-TOOL-ID</strong>"&gt;&lt;/script&gt;</pre>
+<p class="note" style="background:#E3F2FD;border-left-color:#1976D2">⚠️ <code>badge.js</code>는 Phase 2에서 제공 예정 (Cloudflare Pages 배포 후). 현재 PoC에서는 위 정적 HTML로 사용.</p>
+
+<!-- 페이지 자체에도 배지 박아둠 (이 페이지는 DX팀 내부 reference) -->
+<a class="dx-cert-badge" href="index.html">
+  <span class="dot"></span> DX 인증
+  <span class="meta">badge-spec v0.1</span>
+</a>
+
+</body>
+</html>

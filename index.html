@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오가렌 사내 도구 허브 · DX 인증</title>
+<style>
+  :root {
+    --brand: #1F4E79;
+    --brand-light: #E8F0F8;
+    --ok: #2E7D32;
+    --beta: #F57C00;
+    --personal: #757575;
+    --bg: #FAFAFA;
+    --card: #FFFFFF;
+    --border: #E0E0E0;
+    --text: #212121;
+    --muted: #616161;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+  }
+  header {
+    background: var(--brand);
+    color: white;
+    padding: 28px 40px 24px;
+  }
+  header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  header .badge-cert {
+    display: inline-block;
+    background: white;
+    color: var(--brand);
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  header .subtitle {
+    margin-top: 6px;
+    font-size: 14px;
+    opacity: 0.9;
+  }
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 24px 40px 60px;
+  }
+  .stats {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 20px;
+    flex: 1;
+    min-width: 140px;
+  }
+  .stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--brand);
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-btn {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    color: var(--text);
+    transition: all 0.15s;
+  }
+  .filter-btn:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+  }
+  .filter-btn.active {
+    background: var(--brand);
+    color: white;
+    border-color: var(--brand);
+  }
+  .search {
+    flex: 1;
+    min-width: 200px;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: inherit;
+  }
+  .grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .org-section {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .org-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--brand);
+    border-left: 4px solid var(--brand);
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .org-count {
+    background: var(--brand-light);
+    color: var(--brand);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+  .org-count.zero {
+    background: #F5F5F5;
+    color: var(--muted);
+  }
+  .org-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+  }
+  .org-empty {
+    background: var(--card);
+    border: 1px dashed var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 8px;
+    gap: 8px;
+  }
+  .card-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--brand);
+  }
+  .status {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .status-certified { background: #E8F5E9; color: var(--ok); }
+  .status-beta { background: #FFF3E0; color: var(--beta); }
+  .status-personal { background: #F5F5F5; color: var(--personal); }
+  .card-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    flex-grow: 1;
+  }
+  .card-meta {
+    font-size: 12px;
+    color: var(--muted);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 12px;
+    margin-bottom: 12px;
+  }
+  .card-meta dt { font-weight: 600; }
+  .card-link {
+    display: inline-block;
+    background: var(--brand);
+    color: white;
+    text-decoration: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .card-link:hover { background: #163654; }
+  .card-link.disabled {
+    background: #BDBDBD;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  footer a { color: var(--brand); text-decoration: none; }
+  .empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>오가렌 사내 도구 허브 <span class="badge-cert">DX 인증</span></h1>
+  <div class="subtitle">사내에서 사용되는 HTML 도구·대시보드 인증 현황. 인증 마크가 붙은 도구만 "최신·공식 버전"입니다.</div>
+</header>
+
+<div class="container">
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num" id="stat-total">0</div>
+      <div class="stat-label">전체 도구</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="stat-certified" style="color:var(--ok)">0</div>
+      <div class="stat-label">🟢 DX 인증</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="stat-beta" style="color:var(--beta)">0</div>
+      <div class="stat-label">🟡 베타 (검토 중)</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num" id="stat-personal" style="color:var(--personal)">0</div>
+      <div class="stat-label">⚪ 개인본 (자체 책임)</div>
+    </div>
+  </div>
+
+  <div class="filters">
+    <button class="filter-btn active" data-filter="all">전체</button>
+    <button class="filter-btn" data-filter="certified">🟢 인증</button>
+    <button class="filter-btn" data-filter="beta">🟡 베타</button>
+    <button class="filter-btn" data-filter="personal">⚪ 개인본</button>
+    <input type="text" class="search" id="search" placeholder="도구 이름·부서·담당자 검색...">
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    <div>운영: <strong>DX팀</strong> · 문의: <a href="mailto:david.jung@ogaren.com">david.jung@ogaren.com</a></div>
+    <div style="margin-top:8px">신규 도구 등록·인증 신청은 <a href="#">DX 요청폼</a>에서 (P3 카테고리)</div>
+    <div style="margin-top:8px;font-size:11px">마지막 인벤토리 업데이트: <span id="last-updated">-</span></div>
+  </footer>
+
+</div>
+
+<script>
+const STATUS_LABEL = {
+  certified: { label: '🟢 DX 인증', cls: 'status-certified' },
+  beta:      { label: '🟡 베타',     cls: 'status-beta' },
+  personal:  { label: '⚪ 개인본',   cls: 'status-personal' }
+};
+
+let TOOLS = [];
+let ORG_ORDER = ["사업운영실", "마케팅전략실", "세일즈전략실", "경영기획실"];
+let activeFilter = 'all';
+let searchQuery = '';
+
+async function load() {
+  const res = await fetch('tools.json');
+  const data = await res.json();
+  TOOLS = data.tools;
+  if (Array.isArray(data.org_order)) ORG_ORDER = data.org_order;
+  document.getElementById('last-updated').textContent = data.last_updated;
+  render();
+}
+
+function renderCard(t) {
+  const st = STATUS_LABEL[t.status];
+  const linkHtml = t.url
+    ? `<a class="card-link" href="${t.url}" target="_blank">열기 →</a>`
+    : `<span class="card-link disabled">링크 없음 (사내 배포)</span>`;
+  const certDate = t.certified_at ? `<dt>인증일</dt><dd>${t.certified_at}</dd>` : '';
+  return `
+    <div class="card">
+      <div class="card-header">
+        <div class="card-name">${t.name}</div>
+        <span class="status ${st.cls}">${st.label}</span>
+      </div>
+      <div class="card-desc">${t.description}</div>
+      <dl class="card-meta">
+        <dt>버전</dt><dd>${t.version}</dd>
+        <dt>업데이트</dt><dd>${t.last_updated}</dd>
+        <dt>제작</dt><dd>${t.owner_team} · ${t.owner_name}</dd>
+        <dt>사용</dt><dd>${t.consumer_team}</dd>
+        <dt>배포</dt><dd>${t.deploy}</dd>
+        ${certDate}
+      </dl>
+      ${linkHtml}
+    </div>
+  `;
+}
+
+function render() {
+  const grid = document.getElementById('grid');
+  const q = searchQuery.toLowerCase().trim();
+  const filterActive = activeFilter !== 'all' || q.length > 0;
+
+  const filtered = TOOLS.filter(t => {
+    if (activeFilter !== 'all' && t.status !== activeFilter) return false;
+    if (q) {
+      const hay = [t.name, t.description, t.owner_team, t.owner_name, t.consumer_team, t.org_unit].join(' ').toLowerCase();
+      if (!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  document.getElementById('stat-total').textContent = TOOLS.length;
+  document.getElementById('stat-certified').textContent = TOOLS.filter(t => t.status === 'certified').length;
+  document.getElementById('stat-beta').textContent = TOOLS.filter(t => t.status === 'beta').length;
+  document.getElementById('stat-personal').textContent = TOOLS.filter(t => t.status === 'personal').length;
+
+  const byOrg = {};
+  for (const t of filtered) {
+    const key = t.org_unit || '기타';
+    if (!byOrg[key]) byOrg[key] = [];
+    byOrg[key].push(t);
+  }
+
+  const orgs = ORG_ORDER.slice();
+  for (const k of Object.keys(byOrg)) {
+    if (!orgs.includes(k)) orgs.push(k);
+  }
+
+  const sections = orgs.map(org => {
+    const items = byOrg[org] || [];
+    const countCls = items.length === 0 ? 'org-count zero' : 'org-count';
+    let body;
+    if (items.length > 0) {
+      body = `<div class="org-grid">${items.map(renderCard).join('')}</div>`;
+    } else if (filterActive) {
+      body = `<div class="org-empty">조건에 맞는 도구가 없습니다.</div>`;
+    } else {
+      body = `<div class="org-empty">아직 등록된 도구가 없습니다.</div>`;
+    }
+    return `
+      <section class="org-section">
+        <h2 class="org-title">${org} <span class="${countCls}">${items.length}</span></h2>
+        ${body}
+      </section>
+    `;
+  }).join('');
+
+  grid.innerHTML = sections;
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    render();
+  });
+});
+
+document.getElementById('search').addEventListener('input', e => {
+  searchQuery = e.target.value;
+  render();
+});
+
+load();
+</script>
+
+</body>
+</html>
