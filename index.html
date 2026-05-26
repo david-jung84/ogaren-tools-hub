@@ -4,298 +4,577 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>오가렌 사내 도구 허브 · DX 인증</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css" />
 <style>
   :root {
-    --brand: #1F4E79;
-    --brand-light: #E8F0F8;
-    --ok: #2E7D32;
-    --beta: #F57C00;
-    --personal: #757575;
-    --bg: #FAFAFA;
+    --brand-900: #0F2942;
+    --brand-700: #1F4E79;
+    --brand-500: #2E6EA8;
+    --brand-50:  #EFF5FB;
+
+    --slate-900: #0F172A;
+    --slate-700: #334155;
+    --slate-500: #64748B;
+    --slate-300: #CBD5E1;
+    --slate-200: #E2E8F0;
+    --slate-100: #F1F5F9;
+    --slate-50:  #F8FAFC;
+
+    --ok-bg:    #ECFDF5;
+    --ok-text:  #065F46;
+    --ok-dot:   #10B981;
+
+    --warn-bg:   #FEF3C7;
+    --warn-text: #92400E;
+    --warn-dot:  #F59E0B;
+
+    --gray-bg:   #F3F4F6;
+    --gray-text: #4B5563;
+    --gray-dot:  #9CA3AF;
+
+    --bg: var(--slate-50);
     --card: #FFFFFF;
-    --border: #E0E0E0;
-    --text: #212121;
-    --muted: #616161;
+    --border: var(--slate-200);
+    --text: var(--slate-900);
+    --muted: var(--slate-500);
+
+    --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.06);
+    --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.10);
+
+    --radius-sm: 8px;
+    --radius:    12px;
+    --radius-lg: 16px;
   }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
   body {
-    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', -apple-system, sans-serif;
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
     background: var(--bg);
     color: var(--text);
-    line-height: 1.5;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'tnum' 1, 'ss03' 1;
   }
-  header {
-    background: var(--brand);
+
+  /* ===== Header ===== */
+  .hero {
+    background:
+      radial-gradient(ellipse at top right, rgba(46, 110, 168, 0.35) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(15, 41, 66, 0.4) 0%, transparent 60%),
+      linear-gradient(135deg, var(--brand-900) 0%, var(--brand-700) 100%);
     color: white;
-    padding: 28px 40px 24px;
+    padding: 56px 0 48px;
+    position: relative;
+    overflow: hidden;
   }
-  header h1 {
-    font-size: 24px;
-    font-weight: 700;
-    display: flex;
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06) 0%, transparent 30%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 30%);
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+  }
+  .hero-badge {
+    display: inline-flex;
     align-items: center;
-    gap: 10px;
-  }
-  header .badge-cert {
-    display: inline-block;
-    background: white;
-    color: var(--brand);
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: white;
     font-size: 12px;
-    padding: 2px 8px;
-    border-radius: 4px;
     font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+    letter-spacing: 0.02em;
   }
-  header .subtitle {
-    margin-top: 6px;
-    font-size: 14px;
-    opacity: 0.9;
+  .hero-badge .check {
+    width: 14px; height: 14px;
+    background: var(--ok-dot);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 9px;
   }
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+  .hero p {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 640px;
+    line-height: 1.6;
+  }
+  .hero-meta {
+    margin-top: 24px;
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .hero-meta .dot {
+    width: 6px; height: 6px;
+    background: var(--ok-dot);
+    border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+  }
+
+  /* ===== Container ===== */
   .container {
     max-width: 1280px;
     margin: 0 auto;
-    padding: 24px 40px 60px;
+    padding: 0 40px 80px;
   }
+
+  /* ===== Stats ===== */
   .stats {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: 16px;
-    margin-bottom: 24px;
-    flex-wrap: wrap;
+    margin-top: -28px;
+    margin-bottom: 40px;
+    position: relative;
+    z-index: 2;
   }
   .stat {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 14px 20px;
-    flex: 1;
-    min-width: 140px;
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
   }
+  .stat::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--slate-300);
+    transition: background 0.2s;
+  }
+  .stat.s-total::before    { background: linear-gradient(180deg, var(--brand-500), var(--brand-700)); }
+  .stat.s-certified::before { background: var(--ok-dot); }
+  .stat.s-beta::before     { background: var(--warn-dot); }
+  .stat.s-personal::before { background: var(--gray-dot); }
   .stat-num {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--brand);
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
   }
   .stat-label {
-    font-size: 13px;
+    font-size: 12px;
     color: var(--muted);
-    margin-top: 2px;
+    margin-top: 6px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
-  .filters {
+  .stat-label .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  /* ===== Toolbar ===== */
+  .toolbar {
     display: flex;
     gap: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 32px;
     flex-wrap: wrap;
     align-items: center;
-  }
-  .filter-btn {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 14px;
+    border-radius: var(--radius);
+    padding: 10px;
+    box-shadow: var(--shadow-sm);
+  }
+  .filter-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
     font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
     font-family: inherit;
-    color: var(--text);
+    color: var(--slate-700);
     transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
   .filter-btn:hover {
-    border-color: var(--brand);
-    color: var(--brand);
+    background: var(--slate-100);
+    color: var(--text);
   }
   .filter-btn.active {
-    background: var(--brand);
+    background: var(--brand-700);
     color: white;
-    border-color: var(--brand);
+    box-shadow: var(--shadow-sm);
+  }
+  .filter-btn.active:hover { background: var(--brand-700); }
+  .filter-divider {
+    width: 1px;
+    height: 24px;
+    background: var(--border);
+    margin: 0 4px;
+  }
+  .search-wrap {
+    flex: 1;
+    min-width: 220px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  .search-wrap::before {
+    content: '🔍';
+    position: absolute;
+    left: 12px;
+    font-size: 13px;
+    opacity: 0.5;
+    pointer-events: none;
   }
   .search {
     flex: 1;
-    min-width: 200px;
-    padding: 6px 12px;
+    padding: 8px 14px 8px 34px;
     border: 1px solid var(--border);
-    border-radius: 20px;
+    border-radius: var(--radius-sm);
     font-size: 13px;
     font-family: inherit;
+    background: var(--slate-50);
+    transition: all 0.15s;
+    color: var(--text);
   }
+  .search:focus {
+    outline: none;
+    border-color: var(--brand-500);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(46, 110, 168, 0.12);
+  }
+
+  /* ===== Org Sections ===== */
   .grid {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 40px;
   }
   .org-section {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 16px;
+    animation: fadeUp 0.4s ease-out backwards;
+  }
+  .org-section:nth-child(1) { animation-delay: 0.05s; }
+  .org-section:nth-child(2) { animation-delay: 0.10s; }
+  .org-section:nth-child(3) { animation-delay: 0.15s; }
+  .org-section:nth-child(4) { animation-delay: 0.20s; }
+
+  .org-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
   }
   .org-title {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 700;
-    color: var(--brand);
-    border-left: 4px solid var(--brand);
-    padding-left: 10px;
+    color: var(--text);
+    letter-spacing: -0.01em;
     display: flex;
     align-items: center;
     gap: 10px;
   }
   .org-count {
-    background: var(--brand-light);
-    color: var(--brand);
+    background: var(--brand-50);
+    color: var(--brand-700);
     font-size: 12px;
-    font-weight: 600;
-    padding: 2px 10px;
-    border-radius: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-variant-numeric: tabular-nums;
   }
   .org-count.zero {
-    background: #F5F5F5;
+    background: var(--slate-100);
     color: var(--muted);
+  }
+  .org-tag {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
   }
   .org-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 16px;
   }
   .org-empty {
     background: var(--card);
-    border: 1px dashed var(--border);
-    border-radius: 10px;
-    padding: 24px;
+    border: 1px dashed var(--slate-300);
+    border-radius: var(--radius);
+    padding: 32px 24px;
     text-align: center;
     color: var(--muted);
     font-size: 13px;
   }
+
+  /* ===== Card ===== */
   .card {
     background: var(--card);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 18px;
-    transition: transform 0.15s, box-shadow 0.15s;
+    border-radius: var(--radius);
+    padding: 22px;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
+    position: relative;
+    overflow: hidden;
   }
+  .card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: transparent;
+    transition: background 0.2s;
+  }
+  .card.s-certified::after { background: var(--ok-dot); }
+  .card.s-beta::after      { background: var(--warn-dot); }
+  .card.s-personal::after  { background: var(--gray-dot); }
   .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--slate-300);
   }
   .card-header {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 8px;
-    gap: 8px;
+    gap: 12px;
   }
   .card-name {
     font-size: 16px;
     font-weight: 700;
-    color: var(--brand);
+    color: var(--text);
+    letter-spacing: -0.01em;
+    line-height: 1.4;
   }
   .status {
     font-size: 11px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 4px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
     white-space: nowrap;
     flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    letter-spacing: 0.01em;
   }
-  .status-certified { background: #E8F5E9; color: var(--ok); }
-  .status-beta { background: #FFF3E0; color: var(--beta); }
-  .status-personal { background: #F5F5F5; color: var(--personal); }
+  .status .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+  .status-certified { background: var(--ok-bg);   color: var(--ok-text); }
+  .status-certified .dot { background: var(--ok-dot); }
+  .status-beta      { background: var(--warn-bg); color: var(--warn-text); }
+  .status-beta .dot { background: var(--warn-dot); }
+  .status-personal  { background: var(--gray-bg); color: var(--gray-text); }
+  .status-personal .dot { background: var(--gray-dot); }
   .card-desc {
     font-size: 13px;
-    color: var(--muted);
-    margin-bottom: 12px;
+    color: var(--slate-700);
+    margin-bottom: 18px;
     flex-grow: 1;
+    line-height: 1.55;
   }
   .card-meta {
     font-size: 12px;
     color: var(--muted);
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 4px 12px;
-    margin-bottom: 12px;
+    grid-template-columns: 60px 1fr;
+    gap: 6px 12px;
+    margin-bottom: 18px;
+    padding: 14px 0;
+    border-top: 1px solid var(--slate-100);
+    border-bottom: 1px solid var(--slate-100);
   }
-  .card-meta dt { font-weight: 600; }
+  .card-meta dt {
+    font-weight: 600;
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .card-meta dd {
+    color: var(--slate-700);
+    font-weight: 500;
+  }
   .card-link {
-    display: inline-block;
-    background: var(--brand);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: var(--brand-700);
     color: white;
     text-decoration: none;
-    padding: 7px 14px;
-    border-radius: 6px;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
     font-size: 13px;
     font-weight: 600;
-    text-align: center;
+    transition: all 0.15s;
   }
-  .card-link:hover { background: #163654; }
+  .card-link:hover {
+    background: var(--brand-900);
+    transform: translateX(2px);
+  }
   .card-link.disabled {
-    background: #BDBDBD;
+    background: var(--slate-100);
+    color: var(--muted);
     cursor: not-allowed;
     pointer-events: none;
   }
+  .card-link.disabled:hover { transform: none; }
+
+  /* ===== Footer ===== */
   footer {
-    text-align: center;
-    margin-top: 40px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-    font-size: 12px;
+    margin-top: 60px;
+    padding: 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-size: 13px;
     color: var(--muted);
   }
-  footer a { color: var(--brand); text-decoration: none; }
-  .empty {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--muted);
+  footer a {
+    color: var(--brand-700);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  footer a:hover { text-decoration: underline; }
+  .footer-left strong { color: var(--text); }
+  .footer-right { font-size: 12px; }
+
+  /* ===== Animations ===== */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 768px) {
+    .hero { padding: 40px 0 36px; }
+    .hero-inner, .container { padding-left: 20px; padding-right: 20px; }
+    .hero h1 { font-size: 28px; }
+    .hero p { font-size: 14px; }
+    .toolbar { padding: 8px; }
+    .filter-btn { padding: 7px 10px; font-size: 12px; }
+    .org-grid { grid-template-columns: 1fr; }
+    .org-header { flex-direction: column; align-items: flex-start; gap: 4px; }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>오가렌 사내 도구 허브 <span class="badge-cert">DX 인증</span></h1>
-  <div class="subtitle">사내에서 사용되는 HTML 도구·대시보드 인증 현황. 인증 마크가 붙은 도구만 "최신·공식 버전"입니다.</div>
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-badge"><span class="check">✓</span> DX 인증 시스템</span>
+    <h1>오가렌 사내 도구 허브</h1>
+    <p>사내에서 사용되는 모든 HTML 도구·대시보드의 진본 인증 현황. <strong style="color:white;font-weight:600">DX 인증</strong> 마크가 붙은 도구만 최신·공식 버전입니다.</p>
+    <div class="hero-meta">
+      <span class="dot"></span>
+      <span>마지막 인벤토리 업데이트: <strong style="color:white" id="last-updated">-</strong></span>
+    </div>
+  </div>
 </header>
 
 <div class="container">
 
   <div class="stats">
-    <div class="stat">
+    <div class="stat s-total">
       <div class="stat-num" id="stat-total">0</div>
       <div class="stat-label">전체 도구</div>
     </div>
-    <div class="stat">
-      <div class="stat-num" id="stat-certified" style="color:var(--ok)">0</div>
-      <div class="stat-label">🟢 DX 인증</div>
+    <div class="stat s-certified">
+      <div class="stat-num" id="stat-certified">0</div>
+      <div class="stat-label"><span class="dot" style="background:var(--ok-dot)"></span>DX 인증</div>
     </div>
-    <div class="stat">
-      <div class="stat-num" id="stat-beta" style="color:var(--beta)">0</div>
-      <div class="stat-label">🟡 베타 (검토 중)</div>
+    <div class="stat s-beta">
+      <div class="stat-num" id="stat-beta">0</div>
+      <div class="stat-label"><span class="dot" style="background:var(--warn-dot)"></span>베타 (검토 중)</div>
     </div>
-    <div class="stat">
-      <div class="stat-num" id="stat-personal" style="color:var(--personal)">0</div>
-      <div class="stat-label">⚪ 개인본 (자체 책임)</div>
+    <div class="stat s-personal">
+      <div class="stat-num" id="stat-personal">0</div>
+      <div class="stat-label"><span class="dot" style="background:var(--gray-dot)"></span>개인본 (자체 책임)</div>
     </div>
   </div>
 
-  <div class="filters">
+  <div class="toolbar">
     <button class="filter-btn active" data-filter="all">전체</button>
-    <button class="filter-btn" data-filter="certified">🟢 인증</button>
-    <button class="filter-btn" data-filter="beta">🟡 베타</button>
-    <button class="filter-btn" data-filter="personal">⚪ 개인본</button>
-    <input type="text" class="search" id="search" placeholder="도구 이름·부서·담당자 검색...">
+    <button class="filter-btn" data-filter="certified"><span class="dot" style="width:6px;height:6px;border-radius:50%;background:var(--ok-dot);display:inline-block"></span> 인증</button>
+    <button class="filter-btn" data-filter="beta"><span class="dot" style="width:6px;height:6px;border-radius:50%;background:var(--warn-dot);display:inline-block"></span> 베타</button>
+    <button class="filter-btn" data-filter="personal"><span class="dot" style="width:6px;height:6px;border-radius:50%;background:var(--gray-dot);display:inline-block"></span> 개인본</button>
+    <div class="filter-divider"></div>
+    <div class="search-wrap">
+      <input type="text" class="search" id="search" placeholder="도구 이름·부서·담당자로 검색...">
+    </div>
   </div>
 
   <div class="grid" id="grid"></div>
 
   <footer>
-    <div>운영: <strong>DX팀</strong> · 문의: <a href="mailto:david.jung@ogaren.com">david.jung@ogaren.com</a></div>
-    <div style="margin-top:8px">신규 도구 등록·인증 신청은 <a href="#">DX 요청폼</a>에서 (P3 카테고리)</div>
-    <div style="margin-top:8px;font-size:11px">마지막 인벤토리 업데이트: <span id="last-updated">-</span></div>
+    <div class="footer-left">
+      운영 <strong>DX팀</strong> · 문의 <a href="mailto:david.jung@ogaren.com">david.jung@ogaren.com</a>
+    </div>
+    <div class="footer-right">
+      신규 도구 등록·인증 신청 → <a href="#">DX 요청폼</a> (P3 카테고리)
+    </div>
   </footer>
 
 </div>
 
 <script>
 const STATUS_LABEL = {
-  certified: { label: '🟢 DX 인증', cls: 'status-certified' },
-  beta:      { label: '🟡 베타',     cls: 'status-beta' },
-  personal:  { label: '⚪ 개인본',   cls: 'status-personal' }
+  certified: { label: 'DX 인증', cls: 'status-certified', cardCls: 's-certified' },
+  beta:      { label: '베타',     cls: 'status-beta',      cardCls: 's-beta' },
+  personal:  { label: '개인본',   cls: 'status-personal',  cardCls: 's-personal' }
 };
 
 let TOOLS = [];
@@ -315,14 +594,14 @@ async function load() {
 function renderCard(t) {
   const st = STATUS_LABEL[t.status];
   const linkHtml = t.url
-    ? `<a class="card-link" href="${t.url}" target="_blank">열기 →</a>`
-    : `<span class="card-link disabled">링크 없음 (사내 배포)</span>`;
-  const certDate = t.certified_at ? `<dt>인증일</dt><dd>${t.certified_at}</dd>` : '';
+    ? `<a class="card-link" href="${t.url}" target="_blank" rel="noopener">열기 <span aria-hidden="true">→</span></a>`
+    : `<span class="card-link disabled">사내 배포 · 링크 없음</span>`;
+  const certRow = t.certified_at ? `<dt>인증일</dt><dd>${t.certified_at}</dd>` : '';
   return `
-    <div class="card">
+    <div class="card ${st.cardCls}">
       <div class="card-header">
         <div class="card-name">${t.name}</div>
-        <span class="status ${st.cls}">${st.label}</span>
+        <span class="status ${st.cls}"><span class="dot"></span>${st.label}</span>
       </div>
       <div class="card-desc">${t.description}</div>
       <dl class="card-meta">
@@ -331,7 +610,7 @@ function renderCard(t) {
         <dt>제작</dt><dd>${t.owner_team} · ${t.owner_name}</dd>
         <dt>사용</dt><dd>${t.consumer_team}</dd>
         <dt>배포</dt><dd>${t.deploy}</dd>
-        ${certDate}
+        ${certRow}
       </dl>
       ${linkHtml}
     </div>
@@ -382,7 +661,10 @@ function render() {
     }
     return `
       <section class="org-section">
-        <h2 class="org-title">${org} <span class="${countCls}">${items.length}</span></h2>
+        <div class="org-header">
+          <h2 class="org-title">${org} <span class="${countCls}">${items.length}</span></h2>
+          <span class="org-tag">${items.length === 0 ? '미등록' : items.length + '개 도구'}</span>
+        </div>
         ${body}
       </section>
     `;
