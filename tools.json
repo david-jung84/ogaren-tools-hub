@@ -1,6 +1,9 @@
 {
   "_comment": "오가렌 사내 HTML 도구 인벤토리. status: 'certified' | 'beta' | 'personal'. org_unit: '사업운영실' | '마케팅전략실' | '세일즈전략실' | '경영기획실' (제작 부서 기준 — DX팀 제작은 경영기획실).",
   "last_updated": "2026-05-26",
+  "_changelog": [
+    "2026-05-26: 이카운트 품목코드 조회 v13.14 → DX 인증 / GitHub Pages 배포 (1호 인증 배지)"
+  ],
   "org_order": ["사업운영실", "마케팅전략실", "세일즈전략실", "경영기획실"],
   "tools": [
     {
@@ -96,17 +99,17 @@
     {
       "id": "ecount-code-lookup",
       "name": "이카운트 품목코드 조회",
-      "description": "쇼룸 매니저용 품목코드 빠른 조회 HTML 도구.",
-      "url": null,
+      "description": "sleeper.co.kr 옵션 순서 그대로. 필수/선택 분리 표시 + 클릭/드롭다운으로 품목코드 빠른 조회.",
+      "url": "https://david-jung84.github.io/ogaren-tools-hub/tools/ecount-code-lookup/",
       "owner_team": "DX팀",
       "owner_name": "정지훈",
-      "consumer_team": "매장 매니저",
+      "consumer_team": "매장 매니저 / 쇼룸",
       "org_unit": "경영기획실",
-      "status": "beta",
-      "version": "v1",
-      "last_updated": "2026-04-20",
-      "certified_at": null,
-      "deploy": "공유 드라이브 (오프라인)"
+      "status": "certified",
+      "version": "v13.14",
+      "last_updated": "2026-05-11",
+      "certified_at": "2026-05-26",
+      "deploy": "GitHub Pages"
     }
   ]
 }
