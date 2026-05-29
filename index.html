@@ -65,9 +65,8 @@
   /* ===== Header ===== */
   .hero {
     background:
-      radial-gradient(ellipse at top right, rgba(46, 110, 168, 0.35) 0%, transparent 50%),
-      radial-gradient(ellipse at bottom left, rgba(15, 41, 66, 0.4) 0%, transparent 60%),
-      linear-gradient(135deg, var(--brand-900) 0%, var(--brand-700) 100%);
+      linear-gradient(135deg, rgba(15, 41, 66, 0.88) 0%, rgba(31, 78, 121, 0.78) 50%, rgba(15, 41, 66, 0.85) 100%),
+      url('assets/hero-bg.png') center/cover no-repeat;
     color: white;
     padding: 56px 0 48px;
     position: relative;
@@ -77,9 +76,9 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image:
-      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06) 0%, transparent 30%),
-      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 30%);
+    background:
+      radial-gradient(ellipse at top right, rgba(46, 110, 168, 0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at bottom left, rgba(15, 41, 66, 0.3) 0%, transparent 60%);
     pointer-events: none;
   }
   .hero-inner {
