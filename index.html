@@ -65,8 +65,9 @@
   /* ===== Header ===== */
   .hero {
     background:
-      linear-gradient(135deg, rgba(15, 41, 66, 0.88) 0%, rgba(31, 78, 121, 0.78) 50%, rgba(15, 41, 66, 0.85) 100%),
-      url('assets/hero-bg.png') center/cover no-repeat;
+      radial-gradient(ellipse at top right, rgba(46, 110, 168, 0.35) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom left, rgba(15, 41, 66, 0.4) 0%, transparent 60%),
+      linear-gradient(135deg, var(--brand-900) 0%, var(--brand-700) 100%);
     color: white;
     padding: 56px 0 48px;
     position: relative;
@@ -76,11 +77,25 @@
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      radial-gradient(ellipse at top right, rgba(46, 110, 168, 0.25) 0%, transparent 55%),
-      radial-gradient(ellipse at bottom left, rgba(15, 41, 66, 0.3) 0%, transparent 60%);
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.06) 0%, transparent 30%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 30%);
     pointer-events: none;
   }
+  .hero-photo {
+    position: absolute;
+    right: 40px;
+    top: 68px;
+    width: 140px;
+    aspect-ratio: 215 / 278;
+    border-radius: 14px;
+    background: url('assets/hero-bg.png') center/cover no-repeat;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    z-index: 2;
+    transition: transform 0.3s;
+  }
+  .hero-photo:hover { transform: scale(1.03); }
   .hero-inner {
     max-width: 1280px;
     margin: 0 auto;
@@ -546,6 +561,9 @@
       font-size: 12px;
       padding: 9px 16px;
     }
+    .hero-photo {
+      display: none;
+    }
     .toolbar { padding: 8px; }
     .filter-btn { padding: 7px 10px; font-size: 12px; }
     .org-grid { grid-template-columns: 1fr; }
@@ -560,6 +578,7 @@
     <a class="hero-cta" href="submit.html">
       📩 내 도구 등록·인증 신청 <span class="arrow">→</span>
     </a>
+    <div class="hero-photo" aria-hidden="true"></div>
     <span class="hero-badge"><span class="check">✓</span> DX 인증 시스템</span>
     <h1>오가렌 사내 허브</h1>
     <p>사내에서 사용되는 모든 HTML 도구·대시보드의 진본 인증 현황. <strong style="color:white;font-weight:600">DX 인증</strong> 마크가 붙은 도구만 최신·공식 버전입니다.</p>
