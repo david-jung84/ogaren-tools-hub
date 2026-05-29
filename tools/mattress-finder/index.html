@@ -1,0 +1,1012 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>오가렌 매트리스 진단 — 나에게 맞는 한 장 찾기</title>
+<meta name="description" content="10가지 질문으로 SLEEPER · nooer 매트리스 중 나에게 가장 잘 맞는 모델을 추천해 드립니다." />
+<style>
+/* ── 변수 ── */
+:root{
+  --bg:#F7F4EE; --ink:#1B1B1B; --ink2:#3A3A3A; --mute:#8A8579;
+  --brand:#1F4E79; --brand2:#0E2A45; --accent:#C9A063;
+  --card:#FFFFFF; --line:#E7E2D6; --soft:#EFE9DC;
+  --ok:#2E7D32; --warn:#B45309; --entry:#4A7C59;
+  --shadow:0 8px 32px rgba(20,20,20,.08);
+  --shadow-sm:0 2px 12px rgba(20,20,20,.05);
+  --radius:18px; --radius-sm:12px;
+  --transition:all .2s cubic-bezier(.4,0,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",system-ui,sans-serif;
+  -webkit-text-size-adjust:100%;letter-spacing:-.01em;line-height:1.5}
+a{color:inherit;text-underline-offset:3px}
+.brand{font-weight:600;letter-spacing:0}
+button{font-family:inherit;cursor:pointer}
+img{display:block}
+
+/* ── 헤더 ── */
+header{
+  padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--line);
+  background:rgba(251,248,242,.92);
+  backdrop-filter:blur(8px);
+  position:sticky;top:0;z-index:100;
+}
+.logo{display:flex;align-items:center;gap:8px;font-weight:800;font-size:15px;color:var(--brand2);letter-spacing:.04em}
+.logo-dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.badge{font-size:11px;color:var(--mute);border:1px solid var(--line);padding:4px 10px;border-radius:999px;background:#fff}
+
+/* ── 레이아웃 ── */
+main{max-width:800px;margin:0 auto;padding:32px 20px 100px}
+h1{font-size:clamp(22px,5vw,30px);line-height:1.22;margin:16px 0 8px;font-weight:800;color:var(--brand2)}
+h2{font-size:clamp(16px,3.5vw,20px);line-height:1.3;margin:0 0 14px;font-weight:700;color:var(--ink)}
+h3{font-size:16px;margin:0 0 8px;font-weight:700}
+p{line-height:1.68;color:var(--ink2);margin:0 0 12px}
+.sub{color:var(--mute);font-size:14px}
+
+/* ── 인트로 ── */
+.hero{
+  background:linear-gradient(160deg,#fff 0%,#FBF8F2 100%);
+  border:1px solid var(--line);border-radius:var(--radius);
+  padding:32px 28px;box-shadow:var(--shadow);
+  animation:fadeUp .5s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+.pill{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;color:var(--brand);background:#E8EFF6;
+  padding:5px 12px;border-radius:999px;margin-bottom:12px;font-weight:600;
+}
+.pill-dot{width:5px;height:5px;border-radius:50%;background:var(--brand)}
+
+.cta{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;cursor:pointer;font-family:inherit;font-size:15px;padding:13px 22px;border-radius:14px;font-weight:700;transition:var(--transition);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
+.btn-pri{background:var(--brand2);color:#fff;box-shadow:0 4px 16px rgba(14,42,69,.25)}
+.btn-pri:hover{background:#0B2238;transform:translateY(-1px);box-shadow:0 6px 20px rgba(14,42,69,.3)}
+.btn-ghost{background:#fff;color:var(--brand2);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--brand);background:#F4F8FB}
+
+/* ── 모델 미리보기 그리드 (인트로 아래) ── */
+.model-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-top:20px}
+.model-chip{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;text-align:center;transition:var(--transition)}
+.model-chip:hover{border-color:var(--brand);box-shadow:var(--shadow-sm)}
+.model-chip img{width:54px;height:54px;object-fit:cover;border-radius:8px;margin:0 auto 8px}
+.model-chip .mc-brand{font-size:10px;color:var(--mute);font-weight:600;letter-spacing:.06em;margin-bottom:2px}
+.model-chip .mc-name{font-size:12px;font-weight:700;color:var(--ink);line-height:1.3}
+.model-chip .mc-tier{display:inline-block;font-size:10px;padding:2px 7px;border-radius:999px;margin-top:4px;font-weight:600}
+.tier-premium .mc-tier{background:#E8EFF6;color:var(--brand)}
+.tier-value .mc-tier{background:#ECFAF1;color:var(--entry)}
+.tier-entry .mc-tier{background:#FFF6E5;color:var(--warn)}
+
+/* ── 진단 ── */
+#screen-quiz{animation:fadeUp .35s ease both}
+.progress-wrap{margin:0 0 20px}
+.progress-steps{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.progress-label{font-size:12px;color:var(--mute);font-weight:600}
+.progress{height:5px;background:#EDE7D8;border-radius:99px;overflow:hidden}
+.progress > div{height:100%;background:linear-gradient(90deg,var(--brand),var(--accent));transition:width .4s cubic-bezier(.4,0,.2,1);border-radius:99px}
+
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:26px 22px;box-shadow:var(--shadow);
+  animation:slideCard .3s ease both;
+}
+@keyframes slideCard{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.qnum{font-size:12px;color:var(--mute);letter-spacing:.08em;font-weight:600;
+  background:#F0EBE2;padding:3px 9px;border-radius:6px}
+.qdots{display:flex;gap:4px}
+.qdot{width:6px;height:6px;border-radius:50%;background:#EDE7D8;transition:var(--transition)}
+.qdot.done{background:var(--brand)}
+.qdot.cur{background:var(--accent);transform:scale(1.2)}
+
+.opt{
+  display:flex;align-items:flex-start;gap:12px;
+  width:100%;text-align:left;background:#fff;border:1.5px solid var(--line);
+  border-radius:14px;padding:15px 16px;margin-top:10px;cursor:pointer;
+  transition:var(--transition);color:var(--ink);
+}
+.opt:hover{border-color:var(--brand);background:#F9FBFD;transform:translateX(3px)}
+.opt.sel{border-color:var(--brand2);background:linear-gradient(135deg,#EEF2F7,#F4F8FB);
+  box-shadow:inset 0 0 0 1.5px var(--brand2);}
+.opt-icon{font-size:22px;flex-shrink:0;line-height:1.2;margin-top:-1px}
+.opt .ot{font-weight:700;font-size:15px;color:var(--ink);line-height:1.3}
+.opt .od{font-size:13px;color:var(--mute);margin-top:3px;line-height:1.4}
+.opt.sel .ot{color:var(--brand2)}
+
+.nav{display:flex;justify-content:space-between;margin-top:18px;gap:10px}
+.nav .btn{flex:1;justify-content:center}
+
+.hidden{display:none!important}
+
+/* ── 결과 ── */
+#screen-result{animation:fadeUp .45s ease both}
+.result-header{margin-bottom:18px}
+.result-main{display:grid;grid-template-columns:160px 1fr;gap:20px;align-items:center}
+.result-img-wrap{position:relative}
+.result-img-wrap img{width:160px;height:160px;object-fit:cover;border-radius:16px;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
+.result-rank{
+  position:absolute;top:-8px;left:-8px;
+  width:28px;height:28px;border-radius:50%;
+  background:var(--brand2);color:#fff;
+  font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 8px rgba(14,42,69,.3);
+}
+.tag{display:inline-flex;align-items:center;font-size:11px;padding:3px 9px;border-radius:6px;margin-right:5px;margin-bottom:4px;font-weight:700;letter-spacing:.02em}
+.tag-brand{background:var(--brand2);color:#fff}
+.tag-premium{background:#E8EFF6;color:var(--brand)}
+.tag-value{background:#ECFAF1;color:var(--entry)}
+.tag-entry{background:#FFF6E5;color:var(--warn)}
+
+/* 점수 바 */
+.score-bars{margin-top:16px}
+.score-bar-item{display:grid;grid-template-columns:110px 1fr 36px;gap:10px;align-items:center;margin-bottom:10px}
+.score-bar-label{font-size:13px;font-weight:700;color:var(--ink2)}
+.score-bar-track{height:8px;background:#EDE7D8;border-radius:99px;overflow:hidden}
+.score-bar-fill{height:100%;border-radius:99px;transition:width .8s cubic-bezier(.4,0,.2,1);width:0}
+.bar-1{background:linear-gradient(90deg,#1F4E79,#C9A063)}
+.bar-2{background:linear-gradient(90deg,#4A7C59,#A3C4A3)}
+.bar-3{background:linear-gradient(90deg,#8A8579,#C9C2B0)}
+.score-bar-pct{font-size:12px;color:var(--mute);font-weight:600;text-align:right}
+
+.why{background:#FBF8F2;border:1px dashed var(--line);border-radius:12px;padding:15px 18px;margin-top:16px}
+.why h4{margin:0 0 10px;font-size:13px;color:var(--brand2);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.why ul{margin:0;padding-left:20px}
+.why li{margin:5px 0;color:var(--ink2);font-size:14px;line-height:1.6}
+.why li::marker{color:var(--accent)}
+
+/* 보조 추천 */
+.alt-section{margin-top:22px}
+.alt-title{font-size:13px;font-weight:700;color:var(--mute);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.alt{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.alt-card{
+  background:#fff;border:1px solid var(--line);border-radius:14px;
+  padding:14px;display:flex;gap:12px;align-items:center;
+  transition:var(--transition);
+}
+.alt-card:hover{border-color:var(--brand);box-shadow:var(--shadow-sm)}
+.alt-card img{width:66px;height:66px;object-fit:cover;border-radius:10px;border:1px solid var(--line);flex-shrink:0}
+.alt-card .at{font-size:13px;font-weight:700;color:var(--ink);line-height:1.3}
+.alt-card .ab{font-size:11px;color:var(--brand);font-weight:600;margin-bottom:2px;text-transform:uppercase;letter-spacing:.04em}
+.alt-card .ad{font-size:12px;color:var(--mute);margin-top:3px;line-height:1.4}
+
+.upsell{margin-top:16px;border:1px solid #F0E8D8;border-radius:14px;padding:16px 18px;background:#FFFDF8}
+.upsell h4{margin:0 0 6px;font-size:14px;color:var(--warn);font-weight:700}
+.upsell p{margin:0;font-size:13.5px;color:var(--ink2)}
+
+.closing{margin-top:22px;padding:22px 20px;border-radius:16px;background:linear-gradient(135deg,var(--brand2),#173D60);color:#fff;box-shadow:var(--shadow)}
+.closing h3{color:#fff;margin:0 0 8px;font-size:17px}
+.closing p{color:#BDD4E8;font-size:14px;margin:0 0 16px;line-height:1.65}
+.closing .cta{margin-top:0}
+.closing .btn-ghost{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.25)}
+.closing .btn-ghost:hover{background:rgba(255,255,255,.22)}
+
+.toddler{margin-top:16px;background:#FFF6E5;border:1px dashed #E6C781;border-radius:12px;padding:14px 16px}
+.toddler h4{margin:0 0 5px;font-size:13px;color:#9A6A12;font-weight:700}
+.toddler p{margin:0;font-size:13px;color:#6B4D0F}
+
+/* 모델 카탈로그 (결과 아래) */
+.catalog{margin-top:32px}
+.catalog-title{font-size:18px;font-weight:800;color:var(--brand2);margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid var(--line)}
+.catalog-group{margin-bottom:24px}
+.catalog-group-label{font-size:11px;font-weight:700;color:var(--mute);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
+.catalog-items{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px}
+.catalog-item{
+  background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden;
+  transition:var(--transition);
+}
+.catalog-item:hover{border-color:var(--brand);box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.catalog-item img{width:100%;height:110px;object-fit:cover}
+.catalog-item-body{padding:10px 12px}
+.ci-brand{font-size:10px;color:var(--mute);font-weight:700;letter-spacing:.06em;margin-bottom:2px}
+.ci-name{font-size:13px;font-weight:700;color:var(--ink);line-height:1.3}
+.ci-sub{font-size:11px;color:var(--mute);margin-top:3px;line-height:1.4}
+
+.micro{font-size:11px;color:var(--mute);text-align:center;margin-top:20px;line-height:1.7}
+
+footer{text-align:center;padding:32px 20px 48px;color:var(--mute);font-size:12px;border-top:1px solid var(--line);margin-top:20px}
+footer span{margin:0 6px}
+
+/* ── 반응형 ── */
+@media(max-width:560px){
+  .result-main{grid-template-columns:100px 1fr;gap:14px}
+  .result-img-wrap img{width:100px;height:100px}
+  .alt{grid-template-columns:1fr}
+  .hero{padding:22px 18px}
+  .card{padding:20px 16px}
+  .model-grid{grid-template-columns:repeat(3,1fr)}
+  .score-bar-item{grid-template-columns:90px 1fr 32px}
+}
+@media(max-width:380px){
+  .model-grid{grid-template-columns:1fr 1fr}
+}
+
+/* ── 프린트 ── */
+@media print{
+  header,footer,#screen-intro,#screen-quiz,.cta,.nav,.btn{display:none!important}
+  #screen-result{display:block!important}
+  .card{box-shadow:none;border:1px solid #ccc}
+  .closing{background:#1F4E79!important;-webkit-print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    OGAREN <span style="opacity:.4;margin:0 3px">·</span> Mattress Finder
+  </div>
+  <span class="badge">베타 · 매장 컨설팅 보조</span>
+</header>
+
+<main>
+
+<!-- ===== 인트로 ===== -->
+<section id="screen-intro" class="hero">
+  <span class="pill"><span class="pill-dot"></span>10문항 · 약 60초</span>
+  <h1>10가지 질문으로<br/>나에게 딱 맞는 매트리스를 찾아드립니다.</h1>
+  <p style="font-size:15px;margin-bottom:0">
+    <b>SLEEPER</b> 시그니처·컴포트플러스·컴포트·하이브리드·스테이블·한고메매,
+    <b class="brand">nooer</b> 편안히·포근히·탄탄히 — 9종 라인업에서
+    <b>체형 · 자세 · 통증 · 동침자 조건</b>을 종합해 1순위 + 보조 2종을 안내합니다.
+  </p>
+  <div class="cta">
+    <button class="btn btn-pri" onclick="start()">▶ 진단 시작하기</button>
+    <button class="btn btn-ghost" onclick="scrollToAbout()">추천 원리 보기</button>
+  </div>
+
+  <!-- 모델 미리보기 -->
+  <div style="margin-top:28px">
+    <p style="font-size:13px;color:var(--mute);margin-bottom:10px;font-weight:600">전체 라인업 미리보기</p>
+    <div class="model-grid" id="intro-model-grid"></div>
+  </div>
+</section>
+
+<!-- 추천 원리 -->
+<section id="about" style="margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px 22px;box-shadow:var(--shadow-sm)">
+  <h3>추천 원리</h3>
+  <p style="font-size:14px;margin-bottom:10px">
+    매장 매니저 표준 상담 룰(세일즈 가이드 세션 1·2)을 룰베이스로 코드화했습니다.
+    <b>체중 × 자세 × 통증 × 동침자 조건 × 단단함 선호 × 더위 정도 × 우선순위</b> 7개 축으로
+    각 모델에 가중 점수를 부여하고, 총점 순으로 1위 + 보조 2종을 추천합니다.
+  </p>
+  <p style="font-size:13px;color:var(--mute);margin:0">
+    ※ 가격은 매장 상담 시 안내됩니다. 이 도구는 추천만 다룹니다.
+  </p>
+</section>
+
+<!-- ===== 진단 ===== -->
+<section id="screen-quiz" class="hidden" style="margin-top:24px">
+  <div class="progress-wrap">
+    <div class="progress-steps">
+      <span class="progress-label" id="qLabel">Q1</span>
+      <div class="qdots" id="qdots"></div>
+    </div>
+    <div class="progress"><div id="bar" style="width:0%"></div></div>
+  </div>
+  <div class="card" id="qcard"></div>
+  <div class="nav">
+    <button class="btn btn-ghost" id="btnPrev" onclick="prev()">← 이전</button>
+    <button class="btn btn-ghost" id="btnSkip" onclick="skip()" style="display:none">건너뛰기</button>
+  </div>
+</section>
+
+<!-- ===== 결과 ===== -->
+<section id="screen-result" class="hidden" style="margin-top:24px">
+  <div class="card">
+    <span class="pill"><span class="pill-dot"></span>진단 결과</span>
+    <h2 id="rTitle" style="margin-top:4px">당신에게 가장 잘 맞는 매트리스</h2>
+
+    <!-- 1순위 -->
+    <div class="result-main">
+      <div class="result-img-wrap">
+        <img id="rImg" src="" alt="" />
+        <div class="result-rank">1</div>
+      </div>
+      <div>
+        <div id="rTags" style="margin-bottom:6px"></div>
+        <h3 id="rName" style="font-size:20px;margin-bottom:4px"></h3>
+        <p id="rSub" style="font-size:13.5px;color:var(--mute);margin:0"></p>
+      </div>
+    </div>
+
+    <!-- 점수 시각화 -->
+    <div class="score-bars" id="rScoreBars"></div>
+
+    <!-- 이유 -->
+    <div class="why">
+      <h4>추천 이유</h4>
+      <ul id="rWhy"></ul>
+    </div>
+
+    <!-- 보조 추천 -->
+    <div class="alt-section">
+      <div class="alt-title">함께 고려해 볼 모델</div>
+      <div class="alt" id="rAlt"></div>
+    </div>
+
+    <!-- 업셀 -->
+    <div class="upsell" id="rUpsell"></div>
+
+    <!-- 토들즈 안내 -->
+    <div class="toddler hidden" id="rToddler">
+      <h4>아이용 매트리스는 별도 라인 — <span class="brand">Toddles</span></h4>
+      <p>성인용 진단과 별개로, <span class="brand">Toddles</span> 키즈 라인을 매장에서 안내해 드립니다. 안전 인증(KC · 라돈)과 체형 발달 기준이 성인과 달라 별도 모델을 권합니다.</p>
+    </div>
+
+    <!-- 클로징 -->
+    <div class="closing">
+      <h3>마지막 한 가지 — 12분 누워보기</h3>
+      <p>매트리스는 최소 12분은 누워봐야 진짜 느낌이 옵니다.<br>후보 2개를 매장에서 반드시 두 번씩 체험해 보세요.</p>
+      <div class="cta">
+        <button class="btn btn-ghost" onclick="restart()">↺ 다시 진단하기</button>
+        <button class="btn btn-ghost" onclick="window.print()">인쇄 · 저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 전체 카탈로그 -->
+  <div class="catalog" id="rCatalog"></div>
+
+  <p class="micro">
+    본 진단은 매장 컨설팅 보조용입니다.<br>
+    최종 추천은 매니저와의 12분 체험을 거쳐 확정됩니다.
+  </p>
+</section>
+
+</main>
+
+<footer>
+  OGAREN DX · Mattress Finder Beta
+  <span>·</span>
+  v0.2 (2026-05-28)
+  <span>·</span>
+  9종 라인업
+</footer>
+
+<script>
+/* =========================================================
+   모델 정의 — 9종
+   ========================================================= */
+const MODELS = {
+  signature: {
+    brand:"SLEEPER", line:"시그니처 커스텀",
+    name:"슬립퍼 시그니처",
+    sub:"1:1 맞춤 · 100K 메모리폼 · 양면 강도 옵션 · 토퍼 세트",
+    grades:"프레스티지 · 프라임 · 익스클루시브",
+    tier:"premium",
+    img:"images/signature.jpg",
+    features:["100K 고밀도 메모리폼","양면 강도 커스텀","GOLS·LGA·KC 인증","면사틴 60수 원단"],
+  },
+  comfortplus: {
+    brand:"SLEEPER", line:"컴포트플러스 (유로탑)",
+    name:"슬립퍼 컴포트플러스",
+    sub:"포켓스프링 + 유로탑 · 총 높이 260mm · 볼륨감 있는 입문형",
+    grades:"-",
+    tier:"entry",
+    img:"images/comfort_plus.png",
+    features:["유로탑 구조","HR폼 25K + 프로파일폼","포켓스프링 190mm","MEDIUM SOFT 경도"],
+  },
+  comfort: {
+    brand:"SLEEPER", line:"컴포트 (타이트탑)",
+    name:"슬립퍼 컴포트",
+    sub:"포켓스프링 + 타이트탑 · 총 높이 220mm · 합리적 입문형",
+    grades:"-",
+    tier:"entry",
+    img:"images/comfort.jpg",
+    features:["타이트탑 구조","HR폼 25K","포켓스프링 190mm","MEDIUM 경도"],
+  },
+  hybrid: {
+    brand:"SLEEPER", line:"하이브리드",
+    name:"슬립퍼 하이브리드",
+    sub:"60K 메모리폼 + 포켓 스프링 · 모션 분리 우수 · 면사틴 60수",
+    grades:"프라임 · 익스클루시브",
+    tier:"premium",
+    img:"images/hybrid.jpg",
+    features:["60K 메모리폼","포켓스프링 모션 분리","라돈 인증","면사틴 60수"],
+  },
+  latex: {
+    brand:"SLEEPER", line:"스테이블 (라텍스)",
+    name:"슬립퍼 스테이블 라텍스",
+    sub:"천연 라텍스 · ISPA·GOLS·LGA · KC · 통기성 우수",
+    grades:"M · MH · 프라임 · 익스클루시브",
+    tier:"premium",
+    img:"images/stable_latex.jpg",
+    features:["천연 라텍스","ISPA·GOLS·LGA 인증","자연 통기성","KC 라돈 통과"],
+  },
+  kmemory: {
+    brand:"SLEEPER", line:"한국형 고밀도 메모리폼",
+    name:"슬립퍼 한고메매",
+    sub:"50K 밀도 · 한국 체형 맞춤 지지력 · 라돈 통과",
+    grades:"-",
+    tier:"premium",
+    img:"images/kr_memory.jpg",
+    features:["50K 고밀도 폼","한국 체형 맞춤","강한 체압 분산","라돈 통과"],
+  },
+  pyeonan: {
+    brand:"nooer", line:"편안히 누어",
+    name:"편안히 누어",
+    sub:"오가닉 코튼 + 에어프로파일폼 스프링 · 친환경 · 중간 지지력",
+    grades:"-",
+    tier:"value",
+    img:"images/pyeonan.jpg",
+    features:["오가닉 코튼","에어프로파일폼 스프링","친환경 소재","균형 잡힌 지지력"],
+  },
+  pogeun: {
+    brand:"nooer", line:"포근히 누어",
+    name:"포근히 누어",
+    sub:"압축포장 · 간편 설치 · 1인 가구 최적",
+    grades:"-",
+    tier:"value",
+    img:"images/pogeun.jpg",
+    features:["압축 롤팩 포장","간편 배송·설치","부드러운 쿠션감","1인 가구 최적"],
+  },
+  tantan: {
+    brand:"nooer", line:"탄탄히 누어",
+    name:"탄탄히 누어",
+    sub:"단단한 지지력 · 허리 부담 있는 분 · 무거운 체형",
+    grades:"-",
+    tier:"value",
+    img:"images/tantan.jpg",
+    features:["높은 지지력","허리 보호","무거운 체형 적합","단단한 경도"],
+  },
+  topper: {
+    brand:"nooer", line:"든든 토퍼",
+    name:"누어 든든 토퍼",
+    sub:"5cm 프리미엄 린넨 토퍼 · 기존 매트리스 업그레이드",
+    grades:"-",
+    tier:"addon",
+    img:"images/topper.jpg",
+    features:["5cm 두께","프리미엄 린넨"],
+  },
+};
+
+const TIER_LABEL = {premium:"SLEEPER 프리미엄", value:"nooer", entry:"SLEEPER 앤트리", addon:"addon"};
+const TIER_TAG   = {premium:"tag-premium", value:"tag-value", entry:"tag-entry", addon:"tag-value"};
+
+/* =========================================================
+   질문 정의 — 10문항
+   ========================================================= */
+const Q_ICONS = {
+  solo:"🛏️", couple:"👫", family:"👨‍👩‍👧",
+  f:"👩", m:"👨", x:"🙂",
+  u60:"🪶", "60_80":"🧍", "80_100":"🏋️", o100:"💪",
+  small:"≈", mid:"↕", big:"↕↕", unk:"❓",
+  side:"🔄", back:"🫲", prone:"⬇️", roll:"↩️",
+  firm:"🪨", med:"⚖️", soft:"🌙",
+  same:"✅", diff:"⚡",
+  yes:"😣", sometimes:"😐", no:"😊",
+  hot:"🔥", normal:"😌", cold:"❄️",
+  value:"💰", balance:"⚖️", premium:"✨",
+};
+
+const QUESTIONS = [
+  {
+    id:"who", q:"이 매트리스, 누구를 위한 건가요?",
+    options:[
+      {k:"solo", t:"나 혼자 (1인 가구)", d:"싱글·슈퍼싱글·퀸 1인 사용"},
+      {k:"couple", t:"부부 · 커플 (둘이서)", d:"퀸·킹·라지킹 동침"},
+      {k:"family", t:"아이와 함께 가족 침실", d:"성인 + 아이 동침 또는 아이방 별도"},
+    ]
+  },
+  {
+    id:"gender", q:"주 사용자의 성별을 알려주세요.",
+    sub:"체형 기반 추천에 참고만 합니다.",
+    options:[
+      {k:"f", t:"여성"},
+      {k:"m", t:"남성"},
+      {k:"x", t:"비공개 · 기타"},
+    ]
+  },
+  {
+    id:"weight", q:"주 사용자의 체중대를 골라주세요.",
+    options:[
+      {k:"u60", t:"60kg 이하", d:"가벼운 체형"},
+      {k:"60_80", t:"60 ~ 80kg", d:"표준 체형"},
+      {k:"80_100", t:"80 ~ 100kg", d:"무거운 체형"},
+      {k:"o100", t:"100kg 이상", d:"고체형 · 강한 지지력 필요"},
+    ]
+  },
+  {
+    id:"gap", q:"두 분의 체중 차이가 얼마나 되나요?",
+    onlyIf:(a)=>a.who==="couple",
+    options:[
+      {k:"small", t:"10kg 이내 — 비슷한 체형"},
+      {k:"mid", t:"10 ~ 20kg"},
+      {k:"big", t:"20kg 이상 — 차이 큼"},
+      {k:"unk", t:"잘 모르겠어요"},
+    ]
+  },
+  {
+    id:"pose", q:"평소 어떤 자세로 주무세요?",
+    options:[
+      {k:"side", t:"옆으로 자요", d:"어깨·골반 체압 분산이 중요"},
+      {k:"back", t:"등을 대고 자요", d:"허리 라인 지지력이 중요"},
+      {k:"prone", t:"엎드려 자요", d:"단단한 매트리스 권장"},
+      {k:"roll", t:"자주 뒤척여요", d:"모션 분리·균형감 중요"},
+    ]
+  },
+  {
+    id:"firm", q:"단단함 선호는 어떠세요?",
+    options:[
+      {k:"firm", t:"단단한 게 좋아요"},
+      {k:"med", t:"중간 정도가 좋아요"},
+      {k:"soft", t:"부드러운 게 좋아요"},
+      {k:"unk", t:"잘 모르겠어요"},
+    ]
+  },
+  {
+    id:"firmGap", q:"두 분의 단단함 선호는 어떠세요?",
+    onlyIf:(a)=>a.who==="couple",
+    options:[
+      {k:"same", t:"비슷해요"},
+      {k:"diff", t:"서로 달라요", d:"한 분은 단단·한 분은 부드러움"},
+      {k:"unk", t:"이야기해본 적 없어요"},
+    ]
+  },
+  {
+    id:"pain", q:"허리·관절 통증이 있으세요?",
+    options:[
+      {k:"yes", t:"자주 / 만성적으로 있어요"},
+      {k:"sometimes", t:"가끔 있어요"},
+      {k:"no", t:"없어요"},
+    ]
+  },
+  {
+    id:"heat", q:"잘 때 더위·땀은 어떠세요?",
+    options:[
+      {k:"hot", t:"많이 타요 — 통기성 중요"},
+      {k:"normal", t:"보통이에요"},
+      {k:"cold", t:"오히려 추위를 타요"},
+    ]
+  },
+  {
+    id:"prio", q:"마지막으로, 가장 중요한 것을 골라주세요.",
+    options:[
+      {k:"value", t:"합리적 가격 · 가성비", d:"핵심 기능 위주로 선택"},
+      {k:"balance", t:"가격과 품질의 균형", d:"오래 쓸 수 있는 안전한 선택"},
+      {k:"premium", t:"인생 매트리스 · 프리미엄", d:"최고 사양·1:1 맞춤 우선"},
+    ]
+  },
+];
+
+/* =========================================================
+   스코어링
+   ========================================================= */
+function score(a){
+  const s = Object.fromEntries(Object.keys(MODELS).map(k=>[k,0]));
+  const why = Object.fromEntries(Object.keys(MODELS).map(k=>[k,[]]));
+  const add = (m,n,r)=>{ s[m]+=n; if(r) why[m].push(r); };
+
+  // 체중
+  if(a.weight==="u60"){
+    add("pogeun",3,"가벼운 체형 — 얕은 매트가 편함");
+    add("comfort",3,"가벼운 체형 — 포켓스프링 컴포트 적합");
+    add("comfortplus",2,"가벼운 체형 — 유로탑 볼륨감 선택지");
+    add("pyeonan",2,"가벼운 체형 — 중간 지지력 적합");
+    add("signature",1);
+  }
+  if(a.weight==="60_80"){
+    add("signature",3,"표준 체형 — 1:1 맞춤이 가장 안전");
+    add("hybrid",2,"표준 체형 — 하이브리드 균형감 우수");
+    add("pyeonan",2);
+    add("comfort",2,"표준 체형 — 컴포트 입문형 적합");
+    add("comfortplus",2,"표준 체형 — 컴포트플러스 볼륨감");
+    add("tantan",2);
+  }
+  if(a.weight==="80_100"){
+    add("kmemory",3,"무거운 체형 — 한국형 고밀도 50K 지지력");
+    add("tantan",3,"무거운 체형 — 단단한 지지력 필요");
+    add("latex",2);
+    add("signature",2);
+    add("comfort",-1,"무거운 체형 — 컴포트 지지력 부족 가능");
+  }
+  if(a.weight==="o100"){
+    add("kmemory",4,"100kg+ — 고밀도 메모리폼 필수");
+    add("tantan",3);
+    add("latex",3,"100kg+ — 라텍스 강한 반발력");
+    add("signature",2);
+    add("comfort",-2,"100kg+ — 컴포트 부적합");
+    add("comfortplus",-2,"100kg+ — 컴포트플러스 부적합");
+  }
+
+  // 자세
+  if(a.pose==="side"){
+    add("signature",2,"옆잠 — 어깨·골반 체압 분산");
+    add("hybrid",2);
+    add("comfortplus",2,"옆잠 — 유로탑 쿠션감이 어깨 분산에 유리");
+    add("pyeonan",1);
+  }
+  if(a.pose==="back"){
+    add("signature",2,"등잠 — 허리 라인 지지력");
+    add("tantan",1);
+    add("kmemory",1);
+    add("comfort",1,"등잠 — 컴포트 균형 지지력");
+  }
+  if(a.pose==="prone"){
+    add("tantan",2,"엎드려 자는 분 — 단단한 매트리스 권장");
+    add("kmemory",2);
+    add("signature",1);
+    add("comfort",1,"엎드림 — 타이트탑 단단한 상면 유리");
+  }
+  if(a.pose==="roll"){
+    add("hybrid",3,"뒤척임 많음 — 포켓 스프링 모션 분리");
+    add("signature",2);
+    add("comfort",1,"뒤척임 — 포켓스프링 기반");
+    add("comfortplus",1,"뒤척임 — 포켓스프링 기반");
+  }
+
+  // 단단함 선호
+  if(a.firm==="firm"){
+    add("tantan",3,"단단함 선호");
+    add("kmemory",2);
+    add("latex",2);
+    add("comfort",2,"단단함 선호 — MEDIUM 경도의 타이트탑");
+  }
+  if(a.firm==="med"){
+    add("pyeonan",2,"중간 단단함");
+    add("hybrid",2);
+    add("signature",2);
+    add("comfort",2,"중간 단단함 — MEDIUM 컴포트");
+    add("comfortplus",1,"중간-소프트 — 컴포트플러스");
+  }
+  if(a.firm==="soft"){
+    add("pogeun",2,"부드러움 선호");
+    add("comfortplus",3,"부드러움 선호 — MEDIUM SOFT 유로탑 구조");
+    add("topper",3,"부드러움 선호 — 토퍼로 쿠션감 보강");
+    add("pyeonan",1);
+  }
+  if(a.firm==="unk"){
+    add("signature",2,"단단함 모호 — 양면 강도 옵션이 안전");
+    add("comfortplus",1,"단단함 모호 — 컴포트플러스 무난한 선택");
+  }
+
+  // 통증
+  if(a.pain==="yes"){
+    add("kmemory",3,"허리 통증 — 고밀도 메모리폼 체압 분산");
+    add("latex",3,"통증 — 라텍스 반발 + 지지");
+    add("signature",2);
+    add("tantan",2);
+    add("topper",1,"통증 — 든든 토퍼 보강 추천");
+    add("comfort",-1,"통증 있음 — 컴포트는 지지력 한계");
+    add("comfortplus",-1,"통증 있음 — 컴포트플러스 지지력 한계");
+  }
+  if(a.pain==="sometimes"){
+    add("signature",2);
+    add("hybrid",1);
+    add("pyeonan",1);
+    add("comfortplus",1,"간헐적 통증 — 컴포트플러스 쿠션 완충");
+  }
+
+  // 더위
+  if(a.heat==="hot"){
+    add("hybrid",2,"더위 많음 — 포켓 스프링 통기성");
+    add("pyeonan",2,"더위 많음 — 오가닉 코튼 통기");
+    add("latex",1);
+    add("comfort",2,"더위 많음 — 스프링 구조 통기성 우수");
+    add("comfortplus",1,"더위 — 스프링 구조 통기성");
+  }
+  if(a.heat==="cold"){
+    add("signature",1,"추위 타심 — 시그니처 토퍼(양모) 매칭");
+    add("pogeun",1);
+  }
+
+  // 우선순위
+  if(a.prio==="value"){
+    add("pogeun",3,"가성비");
+    add("pyeonan",2);
+    add("tantan",2);
+    add("comfort",3,"가성비 — 컴포트 합리적 가격");
+    add("comfortplus",2,"가성비 — 컴포트플러스 합리적 중급");
+    add("signature",-3);
+    add("latex",-2);
+    add("kmemory",-2);
+    add("hybrid",-1);
+  }
+  if(a.prio==="balance"){
+    add("signature",2);
+    add("hybrid",2);
+    add("pyeonan",2,"균형 — nooer 편안히 추천");
+    add("comfortplus",2,"균형 — 컴포트플러스 중간 포지션");
+    add("comfort",1,"균형 — 컴포트 입문형");
+  }
+  if(a.prio==="premium"){
+    add("signature",4,"프리미엄 — 시그니처 1:1 맞춤");
+    add("hybrid",2);
+    add("latex",2);
+    add("comfort",-2,"프리미엄 선택 — 컴포트 급 아님");
+    add("comfortplus",-2,"프리미엄 선택 — 컴포트플러스 급 아님");
+  }
+
+  // 부부 룰
+  if(a.who==="couple"){
+    if(a.gap==="big"){ add("signature",4,"두 분 체중차 20kg+ — 시그니처 양면 강도 옵션"); }
+    if(a.gap==="mid"){ add("signature",2,"체중차 있음 — 양면 옵션 고려"); }
+    if(a.firmGap==="diff"){ add("signature",3,"단단함 선호 불일치 — 양면 강도 또는 토퍼 보정"); add("topper",2); }
+    if(a.pose==="roll"){ add("hybrid",2,"부부 + 뒤척임 — 모션 분리 강화"); }
+    if(a.prio==="premium"){ add("signature",1,"부부 프리미엄 — 풀세트 패키지 가능"); }
+  }
+
+  return {scores:s, why};
+}
+
+/* =========================================================
+   화면 제어
+   ========================================================= */
+const state = { i:0, answers:{} };
+
+function visibleQs(){
+  return QUESTIONS.filter(q => !q.onlyIf || q.onlyIf(state.answers));
+}
+
+function start(){
+  state.i=0; state.answers={};
+  document.getElementById("screen-intro").classList.add("hidden");
+  document.getElementById("about").classList.add("hidden");
+  document.getElementById("screen-quiz").classList.remove("hidden");
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function restart(){
+  document.getElementById("screen-result").classList.add("hidden");
+  document.getElementById("screen-intro").classList.remove("hidden");
+  document.getElementById("about").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function scrollToAbout(){
+  document.getElementById("about").scrollIntoView({behavior:"smooth"});
+}
+
+function render(){
+  const qs = visibleQs();
+  const q = qs[state.i];
+  const total = qs.length;
+  const pct = (state.i / total * 100);
+
+  document.getElementById("bar").style.width = pct + "%";
+  document.getElementById("qLabel").textContent = `Q${state.i+1} / ${total}`;
+
+  // 점 인디케이터
+  const dots = document.getElementById("qdots");
+  dots.innerHTML = qs.map((_, i) =>
+    `<div class="qdot ${i < state.i ? 'done' : i === state.i ? 'cur' : ''}"></div>`
+  ).join("");
+
+  const card = document.getElementById("qcard");
+  const cur = state.answers[q.id];
+
+  // 카드 재애니메이션
+  card.style.animation = "none";
+  card.offsetHeight; // reflow
+  card.style.animation = "";
+
+  card.innerHTML = `
+    <div class="qhead">
+      <span class="qnum">Q${state.i+1}</span>
+      <span style="font-size:12px;color:var(--mute)">${total - state.i - 1}개 남음</span>
+    </div>
+    <h2 style="font-size:19px;margin:12px 0 4px">${q.q}</h2>
+    ${q.sub ? `<p class="sub" style="margin-bottom:8px;font-size:13px">${q.sub}</p>` : ""}
+    <div>
+      ${q.options.map(o => {
+        const icon = Q_ICONS[o.k] || "·";
+        return `
+        <button class="opt ${cur===o.k?'sel':''}" onclick="pick('${q.id}','${o.k}')">
+          <span class="opt-icon">${icon}</span>
+          <div>
+            <div class="ot">${o.t}</div>
+            ${o.d ? `<div class="od">${o.d}</div>` : ""}
+          </div>
+        </button>`;
+      }).join("")}
+    </div>
+  `;
+
+  document.getElementById("btnPrev").style.visibility = state.i===0 ? "hidden":"visible";
+}
+
+function pick(qid, k){
+  state.answers[qid] = k;
+  render();
+  setTimeout(()=>{
+    const qs = visibleQs();
+    if(state.i < qs.length - 1){
+      state.i++;
+      render();
+      window.scrollTo({top:0,behavior:"smooth"});
+    } else {
+      showResult();
+    }
+  }, 200);
+}
+
+function prev(){
+  if(state.i > 0){ state.i--; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+}
+
+function skip(){
+  const qs = visibleQs();
+  if(state.i < qs.length - 1){ state.i++; render(); window.scrollTo({top:0,behavior:"smooth"}); }
+  else { showResult(); }
+}
+
+/* =========================================================
+   결과 렌더
+   ========================================================= */
+function showResult(){
+  document.getElementById("bar").style.width = "100%";
+  const {scores, why} = score(state.answers);
+
+  // 토퍼 제외하고 랭킹
+  const ranked = Object.entries(scores)
+    .filter(([k]) => k !== "topper")
+    .sort((a,b) => b[1] - a[1]);
+
+  const [topK, top2K, top3K] = ranked.map(r => r[0]);
+  const maxScore = ranked[0][1];
+
+  const m = MODELS[topK];
+  document.getElementById("rImg").src = m.img;
+  document.getElementById("rImg").alt = m.name;
+  document.getElementById("rName").textContent = m.name;
+  document.getElementById("rSub").textContent = m.sub;
+
+  // 태그
+  const tierTag = TIER_TAG[m.tier] || "tag-premium";
+  document.getElementById("rTags").innerHTML =
+    `<span class="tag tag-brand">${m.brand}</span>` +
+    `<span class="tag ${tierTag}">${TIER_LABEL[m.tier]}</span>`;
+
+  // 점수 바 (상위 3종)
+  const barColors = ["bar-1","bar-2","bar-3"];
+  document.getElementById("rScoreBars").innerHTML = `
+    <p style="font-size:12px;color:var(--mute);margin-bottom:8px;font-weight:600">추천 점수 비교</p>
+    ${[topK, top2K, top3K].map((k, i) => {
+      const pct = Math.max(0, Math.round(scores[k] / maxScore * 100));
+      return `
+      <div class="score-bar-item">
+        <div class="score-bar-label">${MODELS[k].name.replace("슬립퍼 ","").replace(" 누어","")}</div>
+        <div class="score-bar-track">
+          <div class="score-bar-fill ${barColors[i]}" data-pct="${pct}" style="width:0%"></div>
+        </div>
+        <div class="score-bar-pct">${pct}%</div>
+      </div>`;
+    }).join("")}
+  `;
+
+  // 애니메이션 점수 바
+  setTimeout(()=>{
+    document.querySelectorAll(".score-bar-fill").forEach(el => {
+      el.style.width = el.dataset.pct + "%";
+    });
+  }, 300);
+
+  // 이유
+  const reasons = (why[topK]||[]).filter(Boolean);
+  document.getElementById("rWhy").innerHTML =
+    (reasons.length ? reasons.slice(0,5) : ["체형·자세·통증·동침자 조건을 종합해 가장 균형 잡힌 선택입니다."])
+    .map(r => `<li>${r}</li>`).join("");
+
+  // 보조 2종
+  document.getElementById("rAlt").innerHTML = [top2K, top3K].map(k => {
+    const x = MODELS[k];
+    const tt = TIER_TAG[x.tier] || "tag-premium";
+    return `
+    <div class="alt-card">
+      <img src="${x.img}" alt="${x.name}" onerror="this.src='images/signature.jpg'">
+      <div>
+        <div class="ab">${x.brand}</div>
+        <div class="at">${x.name}</div>
+        <div class="ad">${x.sub}</div>
+      </div>
+    </div>`;
+  }).join("");
+
+  // 업셀
+  const u = document.getElementById("rUpsell");
+  const topperScore = scores.topper || 0;
+  let uHTML = "";
+  if(state.answers.firm==="soft" || state.answers.firmGap==="diff" || state.answers.pain==="yes" || topperScore>=2){
+    uHTML = `<h4>+ 든든 토퍼 함께 추천</h4>
+      <p>${
+        state.answers.firmGap==="diff"
+          ? "두 분의 단단함 선호가 달라, 한쪽만 토퍼로 부드럽게 보정하는 방식이 가장 효율적입니다."
+          : state.answers.firm==="soft"
+            ? "부드러움 선호 — 매트리스 + 5cm 든든 토퍼로 안락감을 더하면 만족도가 크게 올라갑니다."
+            : "허리 부담이 있는 분께 토퍼를 더하면 체압 분산 효과가 크게 향상됩니다."
+      }</p>`;
+  } else if(state.answers.prio==="premium"){
+    uHTML = `<h4>+ 시그니처 토퍼 (호주 양모 · 캐시미어)</h4>
+      <p>프리미엄 라인 선택 시 시그니처 토퍼를 매칭하면 호텔식 침실이 완성됩니다.</p>`;
+  } else {
+    uHTML = `<h4>매장에서 비교 체험을 권합니다</h4>
+      <p>위 2개 후보를 각각 두 번씩 체험해 보세요. 첫 체험은 인상, 두 번째 체험이 결정입니다.</p>`;
+  }
+  u.innerHTML = uHTML;
+
+  // 토들즈
+  if(state.answers.who==="family"){
+    document.getElementById("rToddler").classList.remove("hidden");
+  } else {
+    document.getElementById("rToddler").classList.add("hidden");
+  }
+
+  // 전체 카탈로그
+  renderCatalog(topK);
+
+  document.getElementById("screen-quiz").classList.add("hidden");
+  document.getElementById("screen-result").classList.remove("hidden");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+/* =========================================================
+   카탈로그 렌더
+   ========================================================= */
+function renderCatalog(highlighted){
+  const groups = [
+    {label:"SLEEPER — 프리미엄 라인", keys:["signature","hybrid","latex","kmemory"]},
+    {label:"SLEEPER — 앤트리 라인", keys:["comfortplus","comfort"]},
+    {label:"nooer — 라인업", keys:["pyeonan","pogeun","tantan"]},
+  ];
+
+  let html = `<div class="catalog-title">전체 라인업 비교</div>`;
+  groups.forEach(g => {
+    html += `<div class="catalog-group">
+      <div class="catalog-group-label">${g.label}</div>
+      <div class="catalog-items">`;
+    g.keys.forEach(k => {
+      const m = MODELS[k];
+      const isTop = k === highlighted;
+      html += `
+      <div class="catalog-item" style="${isTop ? 'border-color:var(--accent);box-shadow:0 0 0 2px var(--accent);' : ''}">
+        <img src="${m.img}" alt="${m.name}" onerror="this.src='images/signature.jpg'" />
+        <div class="catalog-item-body">
+          <div class="ci-brand">${m.brand}</div>
+          <div class="ci-name">${m.name}${isTop ? ' ★' : ''}</div>
+          <div class="ci-sub">${m.sub.split('·')[0].trim()}</div>
+          ${m.features && m.features.length ? `<div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px">
+            ${m.features.slice(0,2).map(f=>`<span style="font-size:10px;background:#F0EBE2;padding:2px 6px;border-radius:4px;color:var(--ink2)">${f}</span>`).join("")}
+          </div>` : ""}
+        </div>
+      </div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  document.getElementById("rCatalog").innerHTML = html;
+}
+
+/* =========================================================
+   인트로 모델 그리드 렌더
+   ========================================================= */
+function renderIntroGrid(){
+  const mainModels = ["signature","comfortplus","comfort","hybrid","latex","kmemory","pyeonan","pogeun","tantan"];
+  const grid = document.getElementById("intro-model-grid");
+  grid.innerHTML = mainModels.map(k => {
+    const m = MODELS[k];
+    const tierLabel = m.tier==="premium" ? "프리미엄" : m.tier==="entry" ? "앤트리" : "밸류";
+    const tierCls = "tier-"+m.tier;
+    return `
+    <div class="model-chip ${tierCls}">
+      <img src="${m.img}" alt="${m.name}" onerror="this.style.display='none'" />
+      <div class="mc-brand">${m.brand}</div>
+      <div class="mc-name">${m.name.replace("슬립퍼 ","").replace(" 누어","")}</div>
+      <span class="mc-tier">${tierLabel}</span>
+    </div>`;
+  }).join("");
+}
+
+// 초기화
+renderIntroGrid();
+</script>
+</body>
+</html>
