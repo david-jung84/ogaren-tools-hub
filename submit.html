@@ -531,7 +531,7 @@
         <div class="steps">
           <strong>📝 단계별 안내</strong>
           <ol>
-            <li><strong>도구 인벤토리 폼 열기</strong> → <a href="#" style="color:var(--brand-700);font-weight:600">[폼 URL — 운영 시작 시 업데이트]</a></li>
+            <li><strong>아래 "📝 도구 등록 폼 열기" 버튼 클릭</strong></li>
             <li>회사 Google 계정(@ogaren.com)으로 자동 로그인 됩니다. 이메일 입력 X.</li>
             <li>10개 질문에 답변. 특히 <strong>"민감 정보 레벨"</strong>은 정확하게 — 재무·매출·인사 정보가 있다면 "높음" 선택 필수.</li>
             <li>제출 → 자동으로 DX팀 응답 시트에 들어갑니다.</li>
@@ -539,9 +539,11 @@
           </ol>
         </div>
 
-        <div class="warn-callout" style="margin-top:14px">
-          <strong>⚠️ 폼 준비 중</strong>
-          <p>Google 폼은 현재 DX팀에서 운영 준비 중입니다. 그동안은 <strong>방법 2 (이메일)</strong> 또는 <strong>방법 3 (카톡)</strong>으로 신청해주세요. 폼 운영 시작되면 사내 공지 + 이 페이지 업데이트됩니다.</p>
+        <div style="margin-top:18px; text-align:center">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSeI9l6tDDJWjTtUuSXe6RdzdWArQejqZgpdv9n1TnjF_wOj9w/viewform" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:8px; background:var(--brand-700); color:white; padding:12px 24px; border-radius:var(--radius-sm); text-decoration:none; font-weight:700; font-size:15px; box-shadow:var(--shadow-sm); transition:transform 0.15s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+            📝 도구 등록 폼 열기 →
+          </a>
+          <div style="font-size:12px; color:var(--slate-500); margin-top:8px">새 탭에서 열림 · 약 3분 소요</div>
         </div>
       </div>
 
@@ -714,10 +716,15 @@
   <!-- ============ CTA ============ -->
   <div class="cta">
     <h2 style="color:white !important">바로 신청하기</h2>
-    <p>가장 빠른 방법은 카톡, 가장 정확한 방법은 이메일.</p>
-    <a class="cta-button" href="mailto:david.jung@ogaren.com?subject=[도구 등록] &body=1. 신청 유형 (🟢 인증 / ⚪ 등록만):%0A2. 도구 이름:%0A3. 한 줄 설명:%0A4. 소속 부서·이름:%0A5. 도구 위치 (URL 또는 파일):%0A6. 누가 사용:%0A7. 사용 빈도:%0A8. 민감 정보 (없음/약간/높음):%0A9. 마지막 업데이트:%0A10. 기타 메모:">
-      📩 이메일로 신청하기
-    </a>
+    <p>폼이 가장 정확 (DX 검토에 필요한 정보가 빠짐없이 들어감), 카톡이 가장 빠른 답변.</p>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap">
+      <a class="cta-button" href="https://docs.google.com/forms/d/e/1FAIpQLSeI9l6tDDJWjTtUuSXe6RdzdWArQejqZgpdv9n1TnjF_wOj9w/viewform" target="_blank" rel="noopener">
+        📝 폼으로 신청하기
+      </a>
+      <a class="cta-button" href="mailto:david.jung@ogaren.com?subject=[도구 등록] &body=1. 신청 유형 (🟢 인증 / ⚪ 등록만):%0A2. 도구 이름:%0A3. 한 줄 설명:%0A4. 소속 부서·이름:%0A5. 도구 위치 (URL 또는 파일):%0A6. 누가 사용:%0A7. 사용 빈도:%0A8. 민감 정보 (없음/약간/높음):%0A9. 마지막 업데이트:%0A10. 기타 메모:" style="background:rgba(255,255,255,0.15); color:white; border:1px solid rgba(255,255,255,0.3)">
+        📩 이메일로 신청하기
+      </a>
+    </div>
   </div>
 
   <footer>
