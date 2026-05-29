@@ -68,22 +68,7 @@
       "certified_at": null,
       "deploy": "로컬 HTML (배포 검토 중)"
     },
-    {
-      "id": "seohyun-intake",
-      "name": "서현 확인필요 인테이크",
-      "description": "DX 회신본·SOP·자금FLOW에서 받아야 할 답변 통합. 15개 항목 우선순위 필터 + 체크리스트.",
-      "url": null,
-      "owner_team": "DX팀",
-      "owner_name": "정지훈",
-      "consumer_team": "재무팀 (황서현)",
-      "org_unit": "경영기획실",
-      "status": "beta",
-      "version": "v1",
-      "last_updated": "2026-05-18",
-      "certified_at": null,
-      "deploy": "로컬 HTML"
-    },
-    {
+{
       "id": "keyword-monitor",
       "name": "슬립퍼 키워드 모니터링",
       "description": "4제품×16키워드 네이버쇼핑 일일순위 + 오늘/전일/주말 대시보드.",
