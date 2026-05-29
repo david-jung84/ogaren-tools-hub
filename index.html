@@ -103,6 +103,41 @@
     margin-bottom: 18px;
     letter-spacing: 0.02em;
   }
+  .hero-cta {
+    position: absolute;
+    top: 0;
+    right: 40px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.14);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: white;
+    padding: 11px 20px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+    white-space: nowrap;
+    z-index: 3;
+  }
+  .hero-cta:hover {
+    background: rgba(255, 255, 255, 0.24);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+  }
+  .hero-cta .arrow {
+    opacity: 0.7;
+    transition: transform 0.2s;
+    font-size: 14px;
+  }
+  .hero-cta:hover .arrow {
+    transform: translateX(3px);
+    opacity: 1;
+  }
   .hero-badge .check {
     width: 14px; height: 14px;
     background: var(--ok-dot);
@@ -504,6 +539,14 @@
     .hero-inner, .container { padding-left: 20px; padding-right: 20px; }
     .hero h1 { font-size: 28px; }
     .hero p { font-size: 14px; }
+    .hero-cta {
+      position: static;
+      margin-bottom: 18px;
+      right: auto; top: auto;
+      align-self: flex-start;
+      font-size: 12px;
+      padding: 9px 16px;
+    }
     .toolbar { padding: 8px; }
     .filter-btn { padding: 7px 10px; font-size: 12px; }
     .org-grid { grid-template-columns: 1fr; }
@@ -515,6 +558,9 @@
 
 <header class="hero">
   <div class="hero-inner">
+    <a class="hero-cta" href="submit.html">
+      📩 내 도구 등록·인증 신청 <span class="arrow">→</span>
+    </a>
     <span class="hero-badge"><span class="check">✓</span> DX 인증 시스템</span>
     <h1>오가렌 사내 도구 허브</h1>
     <p>사내에서 사용되는 모든 HTML 도구·대시보드의 진본 인증 현황. <strong style="color:white;font-weight:600">DX 인증</strong> 마크가 붙은 도구만 최신·공식 버전입니다.</p>
