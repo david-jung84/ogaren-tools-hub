@@ -38,22 +38,7 @@
       "certified_at": "2026-05-21",
       "deploy": "GitHub Pages"
     },
-    {
-      "id": "mts-dashboard",
-      "name": "MTS SCM 대시보드",
-      "description": "Google Sheets + Apps Script 기반 발주관리. 차량/파렛트 자동 배정 + 알림 dedup.",
-      "url": "https://github.com/david-jung84/ogaren-mts-dashboard",
-      "owner_team": "DX팀 + SCM팀",
-      "owner_name": "정지훈 / 엄유정",
-      "consumer_team": "SCM팀",
-      "org_unit": "경영기획본부",
-      "status": "beta",
-      "version": "v3.0",
-      "last_updated": "2026-05-15",
-      "certified_at": null,
-      "deploy": "Apps Script (사내)"
-    },
-    {
+{
       "id": "jageum-flow",
       "name": "자금FLOW 대시보드",
       "description": "4법인 카드 + 14일 라인차트 + 만기 임박 + 30일 출금 Top10. RAW 입력 자금FLOW xlsx 가시화.",
