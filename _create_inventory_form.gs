@@ -35,7 +35,7 @@ function createInventoryForm() {
       '⚪ 등록만 원하면 — 허브에 "개인본"으로 표시됩니다 (자체 책임).',
       '',
       '📅 격주 월·수 트리아지에서 검토 후 회신드립니다.',
-      '문의: david.jung@ogaren.com'
+      '문의: DX@ogaren.com'
     ].join('\n'))
     .setCollectEmail(false)         // 이메일 자동수집 X
     .setRequireLogin(true)          // @ogaren.com 로그인 필수
@@ -73,7 +73,7 @@ function createInventoryForm() {
   // ===== 질문 5. 현재 위치 =====
   form.addParagraphTextItem()
     .setTitle('5. 도구가 현재 어디에 있나요?')
-    .setHelpText('URL이 있으면 URL, 없으면 파일 경로 (예: 공유 드라이브 경로, 데스크탑, 카톡 공유 등)')
+    .setHelpText('URL이 있으면 URL, 없으면 파일 경로 (예: 공유 드라이브 경로, 데스크탑, 채널톡 공유 등)')
     .setRequired(true);
 
   // ===== 질문 6. 누가 사용하나 =====
