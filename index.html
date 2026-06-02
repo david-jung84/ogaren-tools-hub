@@ -103,10 +103,16 @@
     margin-bottom: 18px;
     letter-spacing: 0.02em;
   }
-  .hero-cta {
+  .hero-cta-group {
     position: absolute;
     top: 0;
     right: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 3;
+  }
+  .hero-cta {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -121,7 +127,10 @@
     font-weight: 600;
     transition: all 0.2s;
     white-space: nowrap;
-    z-index: 3;
+  }
+  .hero-cta.secondary {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.16);
   }
   .hero-cta:hover {
     background: rgba(255, 255, 255, 0.24);
@@ -539,11 +548,13 @@
     .hero-inner, .container { padding-left: 20px; padding-right: 20px; }
     .hero h1 { font-size: 28px; }
     .hero p { font-size: 14px; }
-    .hero-cta {
+    .hero-cta-group {
       position: static;
       margin-bottom: 18px;
       right: auto; top: auto;
-      align-self: flex-start;
+      flex-wrap: wrap;
+    }
+    .hero-cta {
       font-size: 12px;
       padding: 9px 16px;
     }
@@ -558,9 +569,14 @@
 
 <header class="hero">
   <div class="hero-inner">
-    <a class="hero-cta" href="submit.html">
-      📩 내 도구 등록·인증 신청 <span class="arrow">→</span>
-    </a>
+    <div class="hero-cta-group">
+      <a class="hero-cta secondary" href="https://docs.google.com/spreadsheets/d/1z4hUdQpUg5ZBPP8YPzML-biDH1-6DNRPE0UJJRccM2s/edit?gid=922950336#gid=922950336" target="_blank" rel="noopener">
+        🧭 [오가렌] Navigator
+      </a>
+      <a class="hero-cta" href="submit.html">
+        📩 내 도구 등록·인증 신청 <span class="arrow">→</span>
+      </a>
+    </div>
     <span class="hero-badge"><span class="check">✓</span> DX 인증 시스템</span>
     <h1>오가렌 사내 허브</h1>
     <p>사내에서 사용되는 모든 HTML 도구·대시보드의 진본 인증 현황. <strong style="color:white;font-weight:600">DX 인증</strong> 마크가 붙은 도구만 최신·공식 버전입니다.</p>
