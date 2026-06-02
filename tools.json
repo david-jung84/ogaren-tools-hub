@@ -84,6 +84,21 @@
       "deploy": "GitHub Pages"
     },
     {
+      "id": "channeltalk-as-viewer",
+      "name": "채널톡 AS 케이스 뷰어",
+      "description": "채널톡 AS 문의 케이스 조회·필터 뷰어 (온라인/오프라인 통합). ⚠️ 고객 개인정보 포함 — 사내 권한자 전용, 공개 배포 불가.",
+      "url": null,
+      "owner_team": "생산관리팀",
+      "owner_name": "손재욱",
+      "consumer_team": "생산관리팀 / 품질관리",
+      "org_unit": "사업운영실",
+      "status": "beta",
+      "version": "v0.8.2",
+      "last_updated": "2026-06-01",
+      "certified_at": null,
+      "deploy": "사내 공유 드라이브 (개인정보 포함·비공개)"
+    },
+    {
       "id": "ecount-code-lookup",
       "name": "이카운트 품목코드 조회",
       "description": "sleeper.co.kr 옵션 순서 그대로. 필수/선택 분리 표시 + 클릭/드롭다운으로 품목코드 빠른 조회.",
