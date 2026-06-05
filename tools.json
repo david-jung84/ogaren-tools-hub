@@ -1,10 +1,11 @@
 {
   "_comment": "오가렌 사내 HTML 도구 인벤토리. status: 'certified' | 'beta' | 'personal'. org_unit: '사업운영실' | '마케팅전략실' | '브랜드전략실' | '세일즈전략실' | '경영기획본부' (기본은 제작 부서 기준 — DX팀 제작은 경영기획본부. 단, 브랜드/특정 부서 전용 도구는 해당 부서로 분류).",
-  "last_updated": "2026-05-28",
+  "last_updated": "2026-06-05",
   "_changelog": [
     "2026-05-26: 이카운트 품목코드 조회 v13.14 → DX 인증 / GitHub Pages 배포 (1호 인증 배지)",
     "2026-05-28: 매트리스 진단(Mattress Finder) v0.1 추가 → 🟡 베타 / GitHub Pages 배포",
-    "2026-05-28: org_unit에 '브랜드전략실' 카테고리 신설 → 매트리스 진단 분류"
+    "2026-05-28: org_unit에 '브랜드전략실' 카테고리 신설 → 매트리스 진단 분류",
+    "2026-06-05: 허브 GitHub Pages → Cloudflare Pages 이전 (비번 게이트). ecount·mattress URL을 ogaren-tools-hub.pages.dev로 갱신, 옛 github.io 404"
   ],
   "org_order": ["사업운영실", "마케팅전략실", "브랜드전략실", "세일즈전략실", "경영기획본부"],
   "tools": [
@@ -72,7 +73,7 @@
       "id": "mattress-finder",
       "name": "매트리스 진단 (Mattress Finder)",
       "description": "10문항 진단으로 SLEEPER·nooer 매트리스 9종 중 고객에게 맞는 1순위 + 보조 2종 + 토퍼 업셀 안내. 매장 컨설팅 보조용.",
-      "url": "https://david-jung84.github.io/ogaren-tools-hub/tools/mattress-finder/",
+      "url": "https://ogaren-tools-hub.pages.dev/tools/mattress-finder/",
       "owner_team": "DX팀 정지훈",
       "owner_name": "제품기획팀 유다연",
       "consumer_team": "매장 전점 / 온라인 고객",
@@ -81,7 +82,7 @@
       "version": "v1.2",
       "last_updated": "2026-05-29",
       "certified_at": null,
-      "deploy": "GitHub Pages"
+      "deploy": "Cloudflare Pages (비번 필요)"
     },
     {
       "id": "channeltalk-as-viewer",
@@ -102,7 +103,7 @@
       "id": "ecount-code-lookup",
       "name": "이카운트 품목코드 조회",
       "description": "sleeper.co.kr 옵션 순서 그대로. 필수/선택 분리 표시 + 클릭/드롭다운으로 품목코드 빠른 조회.",
-      "url": "https://david-jung84.github.io/ogaren-tools-hub/tools/ecount-code-lookup/",
+      "url": "https://ogaren-tools-hub.pages.dev/tools/ecount-code-lookup/",
       "owner_team": "DX팀",
       "owner_name": "정지훈",
       "consumer_team": "매장 매니저 / 쇼룸",
@@ -111,7 +112,7 @@
       "version": "v13.14",
       "last_updated": "2026-05-11",
       "certified_at": "2026-05-26",
-      "deploy": "GitHub Pages"
+      "deploy": "Cloudflare Pages (비번 필요)"
     }
   ]
 }
