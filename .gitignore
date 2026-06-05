@@ -11,3 +11,8 @@ desktop.ini
 *~
 .vscode/
 .idea/
+
+# Cloudflare Pages 로컬 시크릿 / 의존성 (절대 커밋 금지)
+.dev.vars
+node_modules/
+.wrangler/
