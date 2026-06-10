@@ -40,36 +40,6 @@
       "certified_at": "2026-05-21",
       "deploy": "GitHub Pages"
     },
-{
-      "id": "jageum-flow",
-      "name": "자금FLOW 대시보드",
-      "description": "4법인 카드 + 14일 라인차트 + 만기 임박 + 30일 출금 Top10. RAW 입력 자금FLOW xlsx 가시화.",
-      "url": null,
-      "owner_team": "DX팀 + 재무팀",
-      "owner_name": "정지훈 / 황서현",
-      "consumer_team": "재무팀",
-      "org_unit": "경영기획본부",
-      "status": "beta",
-      "version": "v1 PoC",
-      "last_updated": "2026-05-18",
-      "certified_at": null,
-      "deploy": "로컬 HTML (배포 검토 중)"
-    },
-{
-      "id": "keyword-monitor",
-      "name": "슬립퍼 키워드 모니터링",
-      "description": "4제품×16키워드 네이버쇼핑 일일순위 + 오늘/전일/주말 대시보드.",
-      "url": null,
-      "owner_team": "온라인영업팀",
-      "owner_name": "허수지",
-      "consumer_team": "온라인영업팀",
-      "org_unit": "마케팅전략실",
-      "status": "beta",
-      "version": "v1",
-      "last_updated": "2026-05-10",
-      "certified_at": null,
-      "deploy": "로컬 HTML + Python"
-    },
     {
       "id": "mattress-finder",
       "name": "매트리스 진단 (Mattress Finder)",
