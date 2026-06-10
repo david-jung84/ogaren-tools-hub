@@ -118,16 +118,16 @@
     {
       "id": "orange-dashboard",
       "name": "오렌지 대시보드",
-      "description": "유입 / 퍼포먼스 / 언드(earned) 데이터 통합 대시보드. ⚠️ 등록 신청 접수 — DX 검토 전.",
+      "description": "유입 / 퍼포먼스 / 언드(earned) 데이터 통합 대시보드.",
       "url": "http://34.64.247.176:8501/",
       "owner_team": "DX팀",
       "owner_name": "김서희",
       "consumer_team": "마케팅전략실",
       "org_unit": "마케팅전략실",
-      "status": "beta",
-      "version": "신규 신청",
+      "status": "certified",
+      "version": "v1",
       "last_updated": "2026-06-02",
-      "certified_at": null,
+      "certified_at": "2026-06-10",
       "deploy": "Streamlit @ 34.64.247.176:8501"
     },
     {
