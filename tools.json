@@ -1,11 +1,12 @@
 {
   "_comment": "오가렌 사내 HTML 도구 인벤토리. status: 'certified' | 'beta' | 'personal'. org_unit: '사업운영실' | '마케팅전략실' | '브랜드전략실' | '세일즈전략실' | '경영기획본부' (기본은 제작 부서 기준 — DX팀 제작은 경영기획본부. 단, 브랜드/특정 부서 전용 도구는 해당 부서로 분류).",
-  "last_updated": "2026-06-05",
+  "last_updated": "2026-06-10",
   "_changelog": [
     "2026-05-26: 이카운트 품목코드 조회 v13.14 → DX 인증 / GitHub Pages 배포 (1호 인증 배지)",
     "2026-05-28: 매트리스 진단(Mattress Finder) v0.1 추가 → 🟡 베타 / GitHub Pages 배포",
     "2026-05-28: org_unit에 '브랜드전략실' 카테고리 신설 → 매트리스 진단 분류",
-    "2026-06-05: 허브 GitHub Pages → Cloudflare Pages 이전 (비번 게이트). ecount·mattress URL을 ogaren-tools-hub.pages.dev로 갱신, 옛 github.io 404"
+    "2026-06-05: 허브 GitHub Pages → Cloudflare Pages 이전 (비번 게이트). ecount·mattress URL을 ogaren-tools-hub.pages.dev로 갱신, 옛 github.io 404",
+    "2026-06-10: 등록 폼 응답 4건 반영 → 🟡 베타 신규 등록 (네이버 스마트플레이스/키워드, 오렌지 대시보드, 품질관리 대시보드). 모두 인증 신청이나 DX 검토 전이라 beta"
   ],
   "org_order": ["사업운영실", "마케팅전략실", "브랜드전략실", "세일즈전략실", "경영기획본부"],
   "tools": [
@@ -113,6 +114,66 @@
       "last_updated": "2026-05-11",
       "certified_at": "2026-05-26",
       "deploy": "Cloudflare Pages (비번 필요)"
+    },
+    {
+      "id": "naver-smartplace",
+      "name": "네이버 스마트플레이스 데이터 수집",
+      "description": "네이버 스마트플레이스(지도·플레이스) 노출/순위 데이터 자동 수집. ⚠️ 등록 신청 접수 — DX 검토 전.",
+      "url": null,
+      "owner_team": "DX팀",
+      "owner_name": "김서희",
+      "consumer_team": "세일즈전략실",
+      "org_unit": "세일즈전략실",
+      "status": "beta",
+      "version": "신규 신청",
+      "last_updated": "2026-06-02",
+      "certified_at": null,
+      "deploy": "데스크탑 (배포판 공유)"
+    },
+    {
+      "id": "naver-keyword-block",
+      "name": "네이버 키워드 스마트블록/인플루언서 수집",
+      "description": "네이버 키워드별 스마트블록·인플루언서 노출 데이터 자동 수집. ⚠️ 등록 신청 접수 — DX 검토 전.",
+      "url": null,
+      "owner_team": "DX팀",
+      "owner_name": "김서희",
+      "consumer_team": "브랜드마케팅팀",
+      "org_unit": "마케팅전략실",
+      "status": "beta",
+      "version": "신규 신청",
+      "last_updated": "2026-06-02",
+      "certified_at": null,
+      "deploy": "Google Cloud (사내)"
+    },
+    {
+      "id": "orange-dashboard",
+      "name": "오렌지 대시보드",
+      "description": "유입 / 퍼포먼스 / 언드(earned) 데이터 통합 대시보드. ⚠️ 등록 신청 접수 — DX 검토 전.",
+      "url": "http://34.64.247.176:8501/",
+      "owner_team": "DX팀",
+      "owner_name": "김서희",
+      "consumer_team": "마케팅전략실",
+      "org_unit": "마케팅전략실",
+      "status": "beta",
+      "version": "신규 신청",
+      "last_updated": "2026-06-02",
+      "certified_at": null,
+      "deploy": "Streamlit @ 34.64.247.176:8501"
+    },
+    {
+      "id": "quality-dashboard",
+      "name": "품질관리 대시보드",
+      "description": "고객관리팀 A/S 클레임 현황을 통계처리한 대시보드. 60분 단위 자동 업데이트(프로토타입). ⚠️ 등록 신청 접수 — DX 검토 전.",
+      "url": "https://script.google.com/macros/s/AKfycbyWUGfNCf8sMGh2f8UscKqr4wJsHIm8eR6V0ymSUAyIW2qlGHyh5IkosfGKcVjtkeVs/exec",
+      "owner_team": "생산관리팀",
+      "owner_name": "손재욱",
+      "consumer_team": "생산관리팀 / 관리자급",
+      "org_unit": "사업운영실",
+      "status": "beta",
+      "version": "프로토타입",
+      "last_updated": "2026-06-10",
+      "certified_at": null,
+      "deploy": "Apps Script 웹앱"
     }
   ]
 }
