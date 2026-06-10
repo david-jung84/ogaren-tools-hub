@@ -644,6 +644,8 @@ const STATUS_LABEL = {
   beta:      { label: '베타',     cls: 'status-beta',      cardCls: 's-beta' },
   personal:  { label: '개인본',   cls: 'status-personal',  cardCls: 's-personal' }
 };
+// 카드 정렬 우선순위: DX 인증 → 베타 → 개인본
+const STATUS_RANK = { certified: 0, beta: 1, personal: 2 };
 
 let TOOLS = [];
 let ORG_ORDER = ["사업운영실", "마케팅전략실", "브랜드전략실", "세일즈전략실", "경영기획본부"];
@@ -717,7 +719,9 @@ function render() {
   }
 
   const sections = orgs.map(org => {
-    const items = byOrg[org] || [];
+    const items = (byOrg[org] || []).slice().sort(
+      (a, b) => (STATUS_RANK[a.status] ?? 9) - (STATUS_RANK[b.status] ?? 9)
+    );
     const countCls = items.length === 0 ? 'org-count zero' : 'org-count';
     let body;
     if (items.length > 0) {
