@@ -58,17 +58,17 @@
     {
       "id": "channeltalk-as-viewer",
       "name": "채널톡 AS 케이스 뷰어",
-      "description": "채널톡 AS 문의 케이스 조회·필터 뷰어 (온라인/오프라인 통합). ⚠️ 고객 개인정보 포함 — 사내 권한자 전용, 공개 배포 불가.",
-      "url": null,
+      "description": "채널톡 A/S 인입 케이스를 검색·빠른 확인. 개인정보는 마스킹 관리, 접근권한은 관리자(손재욱). 일단위 자동 업데이트 개발 중.",
+      "url": "https://script.google.com/a/macros/ogaren.com/s/AKfycbyIagwkYF-PiQfax8mUdO5MtF59EUQvMbDWPADV0NwaRxMnAhmy0nIA7nDLNgZA9IsY/exec",
       "owner_team": "생산관리팀",
       "owner_name": "손재욱",
-      "consumer_team": "생산관리팀 / 품질관리",
+      "consumer_team": "생산관리팀 / AS 담당자",
       "org_unit": "사업운영실",
       "status": "beta",
       "version": "v0.8.2",
-      "last_updated": "2026-06-01",
+      "last_updated": "2026-06-10",
       "certified_at": null,
-      "deploy": "사내 공유 드라이브 (개인정보 포함·비공개)"
+      "deploy": "Apps Script 웹앱 (사내 ogaren.com 도메인 제한)"
     },
     {
       "id": "ecount-code-lookup",
